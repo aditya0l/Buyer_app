@@ -43,7 +43,7 @@ export const WalletScreen: React.FC = () => {
               
               <TouchableOpacity
                 activeOpacity={0.8}
-                onPress={() => navigation.navigate('CreditDetails')}
+                onPress={() => navigation.navigate('BuyCredits')}
                 style={styles.buyCreditsBtn}
               >
                 <Text style={styles.buyCreditsText}>+ Buy Deal Credits</Text>

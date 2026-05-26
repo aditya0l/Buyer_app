@@ -27,9 +27,9 @@ export const Input: React.FC<InputProps> = ({
       <View
         style={[
           styles.inputContainer,
-          leftIcon && { paddingLeft: 12 },
-          rightIcon && { paddingRight: 12 },
-          error && styles.errorBorder,
+          leftIcon ? { paddingLeft: 12 } : null,
+          rightIcon ? { paddingRight: 12 } : null,
+          error ? styles.errorBorder : null,
         ]}
       >
         {leftIcon && <View style={styles.iconContainer}>{leftIcon}</View>}

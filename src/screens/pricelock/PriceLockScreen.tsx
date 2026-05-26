@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
   },
   timerVal: {
     fontSize: 32,
-    fontWeight: '850',
+    fontWeight: '800',
     color: colors.waiting,
     marginVertical: 12,
   },
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
   },
   priceVal: {
     fontSize: 14,
-    fontWeight: '750',
+    fontWeight: '700',
     color: colors.textPrimary,
   },
   confirmBtn: {

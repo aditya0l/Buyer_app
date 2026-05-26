@@ -1,6 +1,6 @@
-import { MMKV } from 'react-native-mmkv';
+import { createMMKV } from 'react-native-mmkv';
 
-export const storage = new MMKV();
+export const storage = createMMKV();
 
 export const storageKeys = {
   AUTH_TOKEN: 'auth_token',
@@ -27,5 +27,5 @@ export const setStorageItem = <T>(key: string, value: T): void => {
 };
 
 export const removeStorageItem = (key: string): void => {
-  storage.delete(key);
+  storage.remove(key);
 };

@@ -13,7 +13,7 @@ interface NotificationCardProps {
     date: string;
     isRead: boolean;
   };
-  onPress: () => void;
+  onPress?: () => void;
 }
 
 export const NotificationCard: React.FC<NotificationCardProps> = ({ notification, onPress }) => {
@@ -41,7 +41,7 @@ export const NotificationCard: React.FC<NotificationCardProps> = ({ notification
   };
 
   return (
-    <TouchableOpacity activeOpacity={0.9} onPress={onPress}>
+    <TouchableOpacity activeOpacity={0.9} onPress={onPress ?? (() => {})}>
       <Card style={[styles.card, !notification.isRead && styles.unreadCard]}>
         <View style={styles.container}>
           <View style={styles.iconWrapper}>

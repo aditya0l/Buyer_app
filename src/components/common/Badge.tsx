@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, ViewStyle, StyleProp } from 'react-native';
 import { colors } from '../../constants/colors';
 import { radius } from '../../constants/radius';
 
-export type BadgeType = 'LIVE' | 'WAITING' | 'DONE' | 'LOCKED' | 'CANCELLED';
+export type BadgeType = 'LIVE' | 'WAITING' | 'DONE' | 'LOCKED' | 'CANCELLED' | 'CLOSED';
 
 interface BadgeProps {
   type: BadgeType;
@@ -24,6 +24,8 @@ export const Badge: React.FC<BadgeProps> = ({ type, customText, style }) => {
         return { container: styles.lockedBg, text: styles.lockedText, label: '🔒 LOCKED' };
       case 'CANCELLED':
         return { container: styles.cancelledBg, text: styles.cancelledText, label: '✕ CANCELLED' };
+      case 'CLOSED':
+        return { container: styles.defaultBg, text: styles.defaultText, label: '✕ CLOSED' };
       default:
         return { container: styles.defaultBg, text: styles.defaultText, label: '' };
     }

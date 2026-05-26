@@ -1,97 +1,204 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# CarBounty Buyer App
 
-# Getting Started
+> **React Native CLI** | TypeScript | Zustand | React Query | MMKV
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+A car-buying marketplace where buyers post purchase intents, certified dealers compete with real-time quotes in bid rooms, and buyers select winners and track delivery to their door.
 
-## Step 1: Start Metro
+---
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## Quick Start
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+### Prerequisites
 
-```sh
-# Using npm
+| Tool | Version |
+|------|---------|
+| Node | ≥ 22.11.0 |
+| Ruby | ≥ 2.7 (for CocoaPods) |
+| Xcode | ≥ 15 (iOS) |
+| Android Studio | Latest |
+| JDK | 17+ |
+
+### Installation
+
+```bash
+# Clone / open project
+cd buyer_app
+
+# Install JS dependencies
+npm install
+
+# Install iOS native dependencies
+cd ios && bundle install && bundle exec pod install && cd ..
+
+# Start Metro bundler
 npm start
 
-# OR using Yarn
-yarn start
+# Run on iOS (simulator)
+npx react-native run-ios
+
+# Run on Android (emulator or device)
+npx react-native run-android
 ```
 
-## Step 2: Build and run your app
+---
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+## Environment Variables
 
-### Android
+Create `.env` at the project root:
 
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
+```env
+API_BASE_URL=https://api.carbounty.in/v1
+USE_MOCK=true
 ```
 
-### iOS
+Update `src/constants/config.ts` to use these values (currently hardcoded):
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
+```typescript
+// src/constants/config.ts
+export const config = {
+  API_BASE_URL: 'https://api.carbounty.in/v1',
+  USE_MOCK: true,        // Toggle: true = mock data, false = live API
+  TIMEOUT: 15000,
+};
 ```
 
-Then, and every time you update your native dependencies, run:
+---
 
-```sh
-bundle exec pod install
+## Mock → Live API Switch
+
+1. Set `USE_MOCK: false` in `src/constants/config.ts`
+2. All service files in `src/api/` (when created) will use the `apiClient` from `src/api/client.ts`
+3. Each screen uses React Query — replace mock data with `useQuery` calls to service functions
+4. Auth token is auto-injected via the Axios request interceptor in `src/api/client.ts`
+5. 401 responses auto-logout the user and redirect to OTP screen
+
+### Example Pattern
+
+```typescript
+// MOCK (current):
+const room = mockBidRooms.find(r => r.id === roomId);
+
+// LIVE API (swap in):
+const { data: room } = useQuery({
+  queryKey: ['bidRoom', roomId],
+  queryFn: () => bidRoomService.getRoom(roomId),
+});
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+---
 
-```sh
-# Using npm
-npm run ios
+## Architecture
 
-# OR using Yarn
-yarn ios
+```
+src/
+├── api/                  Axios client + endpoint constants + service functions
+├── components/
+│   ├── cards/            BidRoomCard, QuoteCard, ActiveOrderCard, PurchaseHistoryCard…
+│   ├── common/           Button, Input, Badge, TimerCountdown, PriceText, SavingsChip…
+│   └── layout/           ScreenWrapper, Header, SectionHeader
+├── constants/            Design tokens: colors, typography, spacing, radius, shadows
+├── hooks/                useTimer, (useAuth, useBidRoom, useWallet — ready to add)
+├── mocks/                Mock data for all domains (USE_MOCK=true)
+├── navigation/           AppNavigator, Auth/Main stack, BottomTabNavigator, types
+├── screens/              Organized by domain (auth, bidroom, browse, orders…)
+├── store/                Zustand stores: authStore, bidRoomStore, notificationStore
+└── utils/                formatPrice, formatDate, statusLabels, storage (MMKV)
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+---
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+## Design Tokens
 
-## Step 3: Modify your app
+All design tokens live in `src/constants/colors.ts`:
 
-Now that you have successfully run the app, let's make changes!
+| Token | Value | Usage |
+|-------|-------|-------|
+| `primary` | `#2563EB` | Buttons, links, active tab |
+| `navBg` | `#1A1A6E` | Bottom nav background |
+| `appBg` | `#F5F5F5` | App background |
+| `live` | `#16A34A` | Live badge, savings, Done |
+| `waiting` | `#F97316` | Waiting badge, timer orange |
+| `error` | `#DC2626` | Errors, danger actions |
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+To swap Figma tokens: update only `src/constants/colors.ts` — all screens and components reference tokens, never raw hex values.
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+---
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+## Navigation Map
 
-## Congratulations! :tada:
+```
+SplashScreen
+  ├── [No token] → OTPScreen → OnboardingCityScreen → OnboardingBrandsScreen
+  └── [Token valid] → MainTabs (Bottom Nav)
 
-You've successfully run and modified your React Native App. :partying_face:
+MainTabs:
+  🏠 Home       → BidRoom, OrderDetail, PurchaseHistory, NotificationCenter
+  🔍 Browse     → ModelDetail → CreateIntent → CommitmentPay → IntentSuccess → BidRoom
+  ⚡ Bid Rooms  → BidRoomList → BidRoom → SelectWinner → PriceLock → OrderDetail
+  📦 Orders     → OrderList → OrderDetail → DeliveryOTP, Dispute
+  👤 Profile    → EditProfile, Wallet → BuyCredits, DocumentsVault → DocumentFolder → DocumentViewer
+                  PurchaseHistory, Support → RaiseTicket, TicketDetail
+                  PrivacySettings, Security, NotificationCenter
+```
 
-### Now what?
+---
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+## Key Business Rules Enforced in UI
 
-# Troubleshooting
+| Rule | Where |
+|------|-------|
+| No buyer-dealer chat | No chat UI anywhere |
+| Commitment before room | `CommitmentPayScreen` blocks until payment confirmed |
+| Winner selection required | `BidRoomScreen` action bar |
+| Lock timer countdown | `PriceLockScreen` Reanimated countdown |
+| VIN status tags shown | `OrderDetailScreen` — In-Stock / Upcoming ETA / Advance Order |
+| Delivery OTP gate | `DeliveryOTPScreen` only accessible when status = "Delivery Scheduled" |
+| Auto-refund highlight | `WalletScreen` ledger entry type "Refund" with reason |
+| Comparison max 4 rooms | `ComparisonGroupScreen` always shows 2–4 child rooms |
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+---
 
-# Learn More
+## Dependencies
 
-To learn more about React Native, take a look at the following resources:
+| Package | Purpose |
+|---------|---------|
+| `@react-navigation/native` + stacks + tabs | Navigation |
+| `react-native-screens` | Native screen optimization |
+| `react-native-safe-area-context` | Safe area handling |
+| `zustand` | Global client state |
+| `@tanstack/react-query` | Server state + caching |
+| `axios` | HTTP client |
+| `react-native-mmkv` | Fast persistent storage |
+| `react-native-reanimated` | Animations (timer, transitions) |
+| `react-native-gesture-handler` | Gesture support |
+| `react-hook-form` + `@hookform/resolvers` | Form management |
+| `zod` | Schema validation |
+| `date-fns` | Date formatting |
+| `react-native-vector-icons` | Icon support |
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+---
+
+## Testing
+
+```bash
+# Run Jest tests
+npm test
+
+# Lint
+npm run lint
+```
+
+---
+
+## FAQ
+
+**Q: How do I add a new screen?**
+1. Create the screen in the appropriate folder under `src/screens/`
+2. Add the route to `src/navigation/types.ts`
+3. Import and register in `src/navigation/MainStackNavigator.tsx`
+
+**Q: How do I add a new color token?**
+Update `src/constants/colors.ts` only. All screens reference tokens via the `colors` import.
+
+**Q: Why MMKV and not AsyncStorage?**
+MMKV is synchronous and ~10x faster. Auth tokens need synchronous access in the Axios interceptor.

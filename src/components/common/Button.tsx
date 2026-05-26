@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, ViewStyle, TextStyle, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, ViewStyle, TextStyle, ActivityIndicator, StyleProp } from 'react-native';
 import { colors } from '../../constants/colors';
 import { radius } from '../../constants/radius';
 
@@ -13,8 +13,8 @@ interface ButtonProps {
   size?: ButtonSize;
   loading?: boolean;
   disabled?: boolean;
-  style?: ViewStyle;
-  textStyle?: TextStyle;
+  style?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
 }
 
 export const Button: React.FC<ButtonProps> = ({

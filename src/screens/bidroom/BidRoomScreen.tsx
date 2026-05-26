@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, FlatList, Alert } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Alert, TouchableOpacity } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { MainStackParamList } from '../../navigation/types';
 import { colors } from '../../constants/colors';
@@ -180,8 +180,6 @@ export const BidRoomScreen: React.FC<Props> = ({ route, navigation }) => {
   );
 };
 
-// Add touchable opacity import
-import { TouchableOpacity } from 'react-native';
 
 const styles = StyleSheet.create({
   wrapper: {

@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { MainStackParamList } from '../../navigation/types';
 import { colors } from '../../constants/colors';
+import { radius } from '../../constants/radius';
 import { Button } from '../../components/common/Button';
 import { ScreenWrapper } from '../../components/layout/ScreenWrapper';
 

@@ -7,15 +7,35 @@ export interface LedgerEntry {
   linkedItem?: string; // Intent ID or Order ID
 }
 
+export interface PromoVoucher {
+  id: string;
+  code: string;
+  type: string;
+  title: string;
+  expiryDate: string;
+}
+
 export interface Wallet {
   balance: number;
+  totalBalance: number;
   dealCredits: number;
   ledger: LedgerEntry[];
+  promos: PromoVoucher[];
 }
 
 export const mockWallet: Wallet = {
   balance: 0,
+  totalBalance: 0,
   dealCredits: 2,
+  promos: [
+    {
+      id: 'promo-1',
+      code: 'FIRSTCAR',
+      type: 'Cash Discount',
+      title: '₹5,000 off on next purchase',
+      expiryDate: '31 Aug 2026',
+    },
+  ],
   ledger: [
     {
       id: 'tx_001',

@@ -11,7 +11,7 @@ export const AppNavigator: React.FC = () => {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        {isLoggedIn ? <MainStackNavigator /> : <AuthStackNavigator />}
+        {true ? <MainStackNavigator /> : <AuthStackNavigator />}
       </NavigationContainer>
     </SafeAreaProvider>
   );

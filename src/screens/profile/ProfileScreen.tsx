@@ -44,6 +44,18 @@ export const ProfileScreen: React.FC = () => {
         <View style={styles.optionsList}>
           <TouchableOpacity
             activeOpacity={0.7}
+            onPress={() => navigation.navigate('EditProfile')}
+            style={styles.optionRow}
+          >
+            <View style={styles.optionLeft}>
+              <Text style={styles.optionIcon}>✏️</Text>
+              <Text style={styles.optionLabel}>Edit Profile</Text>
+            </View>
+            <Text style={styles.arrow}>→</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            activeOpacity={0.7}
             onPress={() => navigation.navigate('PurchaseHistory')}
             style={styles.optionRow}
           >
@@ -68,12 +80,48 @@ export const ProfileScreen: React.FC = () => {
 
           <TouchableOpacity
             activeOpacity={0.7}
-            onPress={() => navigation.navigate('DocumentList')}
+            onPress={() => navigation.navigate('DocumentsVault')}
             style={styles.optionRow}
           >
             <View style={styles.optionLeft}>
               <Text style={styles.optionIcon}>📁</Text>
-              <Text style={styles.optionLabel}>Uploaded Documents</Text>
+              <Text style={styles.optionLabel}>Documents Vault</Text>
+            </View>
+            <Text style={styles.arrow}>→</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => navigation.navigate('Support')}
+            style={styles.optionRow}
+          >
+            <View style={styles.optionLeft}>
+              <Text style={styles.optionIcon}>🎫</Text>
+              <Text style={styles.optionLabel}>Support</Text>
+            </View>
+            <Text style={styles.arrow}>→</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => navigation.navigate('PrivacySettings')}
+            style={styles.optionRow}
+          >
+            <View style={styles.optionLeft}>
+              <Text style={styles.optionIcon}>🔏</Text>
+              <Text style={styles.optionLabel}>Privacy & Visibility</Text>
+            </View>
+            <Text style={styles.arrow}>→</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => navigation.navigate('Security')}
+            style={styles.optionRow}
+          >
+            <View style={styles.optionLeft}>
+              <Text style={styles.optionIcon}>🔒</Text>
+              <Text style={styles.optionLabel}>Security & Sessions</Text>
             </View>
             <Text style={styles.arrow}>→</Text>
           </TouchableOpacity>

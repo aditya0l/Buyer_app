@@ -4,7 +4,9 @@ export interface User {
   phone: string;
   city: string;
   radius: number;
+  searchRadius?: number; // alias for radius, used in some screens
   avatarUrl: string;
+  preferredBrands?: string[];
 }
 
 export const mockUser: User = {
