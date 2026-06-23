@@ -7,6 +7,7 @@ import { colors } from '../../constants/colors';
 import { radius } from '../../constants/radius';
 import { ScreenWrapper } from '../../components/layout/ScreenWrapper';
 import { mockVehicles } from '../../mocks/mockVehicles';
+import Svg, { Defs, LinearGradient, Stop, Rect } from 'react-native-svg';
 
 type NavigationProp = NativeStackNavigationProp<MainStackParamList>;
 
@@ -28,7 +29,20 @@ export const BrowseScreen: React.FC = () => {
   });
 
   return (
-    <ScreenWrapper style={styles.wrapper}>
+    <ScreenWrapper style={styles.wrapper} scrollable={false}>
+      {/* Background Gradient */}
+      <View style={StyleSheet.absoluteFill}>
+        <Svg width="100%" height="100%">
+          <Defs>
+            <LinearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+              <Stop offset="0" stopColor="#E0EAFF" />
+              <Stop offset="0.4" stopColor="#F9F9FF" />
+              <Stop offset="1" stopColor="#F9F9FF" />
+            </LinearGradient>
+          </Defs>
+          <Rect width="100%" height="100%" fill="url(#bgGrad)" />
+        </Svg>
+      </View>
       {/* Search Header */}
       <View style={styles.searchHeader}>
         <View style={styles.searchContainer}>
@@ -116,20 +130,24 @@ export const BrowseScreen: React.FC = () => {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
+    backgroundColor: 'transparent',
   },
   searchHeader: {
     padding: 16,
-    backgroundColor: colors.cardBg,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.borderLight,
+    backgroundColor: 'transparent',
   },
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.inputBg,
+    backgroundColor: '#FFFFFF',
     borderRadius: radius.md,
-    height: 44,
-    paddingHorizontal: 12,
+    height: 48,
+    paddingHorizontal: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 8,
+    elevation: 2,
   },
   searchIcon: {
     fontSize: 16,
@@ -137,7 +155,8 @@ const styles = StyleSheet.create({
   },
   searchInput: {
     flex: 1,
-    fontSize: 14,
+    fontSize: 15,
+    fontFamily: 'Outfit-Medium',
     color: colors.textPrimary,
     padding: 0,
   },
@@ -147,10 +166,8 @@ const styles = StyleSheet.create({
     marginLeft: 8,
   },
   filterWrapper: {
-    paddingVertical: 12,
-    backgroundColor: colors.cardBg,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.borderLight,
+    paddingBottom: 16,
+    backgroundColor: 'transparent',
   },
   filterList: {
     paddingHorizontal: 16,
@@ -167,7 +184,7 @@ const styles = StyleSheet.create({
   },
   filterText: {
     fontSize: 13,
-    fontWeight: '600',
+    fontFamily: 'Outfit-Medium',
     color: colors.textSecondary,
   },
   selectedFilterText: {
@@ -182,12 +199,15 @@ const styles = StyleSheet.create({
   },
   carCard: {
     width: '48%',
-    backgroundColor: colors.cardBg,
+    backgroundColor: '#FFFFFF',
     borderRadius: radius.lg,
     marginBottom: 16,
     overflow: 'hidden',
-    borderWidth: 1,
-    borderColor: colors.borderLight,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.04,
+    shadowRadius: 10,
+    elevation: 2,
   },
   carImage: {
     width: '100%',
@@ -199,20 +219,20 @@ const styles = StyleSheet.create({
   },
   brandName: {
     fontSize: 11,
-    fontWeight: '700',
+    fontFamily: 'Outfit-Bold',
     color: colors.textSecondary,
     textTransform: 'uppercase',
   },
   modelName: {
     fontSize: 15,
-    fontWeight: '700',
+    fontFamily: 'Outfit-Bold',
     color: colors.textPrimary,
     marginTop: 2,
   },
   priceRange: {
-    fontSize: 12,
+    fontSize: 13,
     color: colors.primary,
-    fontWeight: '700',
+    fontFamily: 'Outfit-Bold',
     marginTop: 4,
   },
   cardFooter: {
@@ -227,16 +247,16 @@ const styles = StyleSheet.create({
   badgeText: {
     fontSize: 10,
     color: colors.textSecondary,
-    fontWeight: '700',
+    fontFamily: 'Outfit-Bold',
     backgroundColor: colors.inputBg,
-    paddingHorizontal: 6,
-    paddingVertical: 2,
-    borderRadius: 4,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 6,
   },
   bidsCount: {
     fontSize: 10,
     color: colors.textSecondary,
-    fontWeight: '600',
+    fontFamily: 'Outfit-Medium',
   },
   emptyContainer: {
     alignItems: 'center',
@@ -249,15 +269,16 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   emptyTitle: {
-    fontSize: 16,
-    fontWeight: '700',
+    fontSize: 18,
+    fontFamily: 'Outfit-Bold',
     color: colors.textPrimary,
   },
   emptySub: {
-    fontSize: 13,
+    fontSize: 14,
+    fontFamily: 'Outfit-Medium',
     color: colors.textSecondary,
     textAlign: 'center',
-    marginTop: 4,
-    lineHeight: 18,
+    marginTop: 6,
+    lineHeight: 20,
   },
 });

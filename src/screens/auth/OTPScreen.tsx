@@ -343,8 +343,7 @@ const styles = StyleSheet.create({
     color: '#2563EB',
   },
   subtitleText: {
-    fontFamily: 'Outfit',
-    fontWeight: '300',
+    fontFamily: 'Outfit-Regular',
     fontSize: 14,
     lineHeight: 20,
     color: '#64748B',

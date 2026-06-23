@@ -23,8 +23,10 @@ export type MainStackParamList = {
   FuelType: { fuelType: string };
   Favorites: undefined;
   SavedSearches: undefined;
+  SearchCar: undefined;
 
   // Intent Flow
+  SelectYourCars: undefined;
   CreateIntent: { vehicleId: string; variantId: string };
   CommitmentPay: { intentId: string; variantId: string; price: number };
   IntentSuccess: { roomId: string };
@@ -36,6 +38,29 @@ export type MainStackParamList = {
   ComparisonGroup: { childRoomIds: string[] };
   ComparisonDetail: { roomId: string };
   PriceLock: { orderId: string };
+
+  // Deal Flow
+  DealLockStep1: undefined;
+  DealLockStep2: undefined;
+  DealLockStep3: undefined;
+  DealLockStep4: undefined;
+  DealLockStep5: undefined;
+  DealBooked: undefined;
+  DealBookingConfirmed: undefined;
+  DealPDIOption: undefined;
+  DealPDIStatus: undefined;
+  DealPDIReport: undefined;
+  DealDeliveryDashboard: undefined;
+  DealConfirmDelivery: undefined;
+  DealClosed: undefined;
+
+  // Loan
+  CarLoanPreApproval: { returnTo?: string } | undefined;
+  CarLoanForm: { returnTo?: string } | undefined;
+  CarLoanPending: { returnTo?: string } | undefined;
+
+  // Agreement
+  DealAgreement: undefined;
 
   // Orders
   OrderList: undefined;

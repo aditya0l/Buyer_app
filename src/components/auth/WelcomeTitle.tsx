@@ -19,8 +19,7 @@ export const WelcomeTitle: React.FC<WelcomeTitleProps> = ({ style }) => {
 const styles = StyleSheet.create({
   container: {},
   title: {
-    fontFamily: 'Outfit',
-    fontWeight: '800',
+    fontFamily: 'Outfit-ExtraBold',
     fontSize: 26,
     lineHeight: 34,
   },

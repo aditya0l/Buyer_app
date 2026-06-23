@@ -68,7 +68,7 @@ export const CustomTabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, 
     <View style={styles.tabBarContainer}>
       {/* Curved SVG Background direct from Figma! */}
       <View style={styles.svgBackgroundWrapper}>
-        <Svg width={screenWidth} height={106} viewBox="0 28 440 106" preserveAspectRatio="none">
+        <Svg width={screenWidth} height={90} viewBox="0 28 440 106" preserveAspectRatio="none">
           <Path
             d="M440 132.597C440 143.642 431.046 152.597 420 152.597H20C8.95431 152.597 0 143.642 0 132.597V48C0 36.9543 8.95431 28 20 28H174.14C178.456 28 181.639 32.0217 181.639 36.3379C181.639 57.6904 198.948 75.0008 220.301 75.001C241.653 75.001 258.964 57.6905 258.964 36.3379C258.964 32.0217 262.147 28 266.463 28H420C431.046 28 440 36.9543 440 48V132.597Z"
             fill="#2563EB"
@@ -109,10 +109,7 @@ export const CustomTabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, 
                 activeOpacity={0.9}
                 style={styles.centerTabButton}
                 onPress={() =>
-                  navigation.navigate('CreateIntent', {
-                    vehicleId: 'maruti-brezza',
-                    variantId: 'zxi-plus',
-                  })
+                  navigation.navigate('SelectYourCars')
                 }
               >
                 <View style={styles.centerCircle}>
@@ -192,7 +189,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    height: 106,
+    height: 90,
     backgroundColor: 'transparent',
     elevation: 8,
     shadowColor: '#000000',
@@ -205,7 +202,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    height: 106,
+    height: 90,
     zIndex: 1,
   },
   buttonsContainer: {
@@ -213,7 +210,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    height: 106,
+    height: 90,
     flexDirection: 'row',
     zIndex: 2,
   },
@@ -221,8 +218,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: 36, // Sits beautifully below the curve boundary
-    paddingBottom: 22,
+    paddingTop: 24, // Sits beautifully below the curve boundary
+    paddingBottom: 16,
   },
   centerTabButton: {
     flex: 1.1,
@@ -236,7 +233,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#2563EB', // Figma bright blue circle
     justifyContent: 'center',
     alignItems: 'center',
-    top: -18, // Uplifted to match the Figma elevated look!
+    top: -22, // Moved up by another 10% (9 pixels) to sit perfectly in the curve
     shadowColor: '#000000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.25,
@@ -251,8 +248,7 @@ const styles = StyleSheet.create({
   },
   tabLabelText: {
     fontSize: 10,
-    fontWeight: '700',
     marginTop: 4,
-    fontFamily: 'Outfit',
+    fontFamily: 'Outfit-Bold',
   },
 });

@@ -19,7 +19,7 @@ export interface BrandCategory {
 export interface CircularBrand {
   id: string;
   name: string;
-  logoUrl: string;
+  logo: any;
   emoji: string;
 }
 
@@ -110,11 +110,11 @@ export const mockBrandCategories: BrandCategory[] = [
 ];
 
 export const mockCircularBrands: CircularBrand[] = [
-  { id: 'bmw', name: 'BMW', logoUrl: 'https://cdn.freebiesupply.com/logos/large/2x/bmw-logo-png-transparent.png', emoji: '🇩🇪' },
-  { id: 'tesla', name: 'Tesla', logoUrl: 'https://cdn.freebiesupply.com/logos/large/2x/tesla-motors-logo-png-transparent.png', emoji: '🇺🇸' },
-  { id: 'mercedes', name: 'Mercedes', logoUrl: 'https://cdn.freebiesupply.com/logos/large/2x/mercedes-benz-logo-png-transparent.png', emoji: '🇩🇪' },
-  { id: 'honda', name: 'Honda', logoUrl: 'https://cdn.freebiesupply.com/logos/large/2x/honda-logo-png-transparent.png', emoji: '🇯🇵' },
-  { id: 'tata', name: 'Tata', logoUrl: 'https://cdn.freebiesupply.com/logos/large/2x/tata-logo-png-transparent.png', emoji: '🇮🇳' },
+  { id: 'bmw', name: 'BMW', logo: require('../assets/images/logos/bmw_logo_1782251709484.png'), emoji: '🇩🇪' },
+  { id: 'tesla', name: 'Tesla', logo: require('../assets/images/logos/tesla_logo_1782251718172.png'), emoji: '🇺🇸' },
+  { id: 'mercedes', name: 'Mercedes', logo: require('../assets/images/logos/mercedes_logo_1782251729411.png'), emoji: '🇩🇪' },
+  { id: 'honda', name: 'Honda', logo: require('../assets/images/logos/honda_logo_1782251739926.png'), emoji: '🇯🇵' },
+  { id: 'tata', name: 'Tata', logo: require('../assets/images/logos/tata_logo_1782251748649.png'), emoji: '🇮🇳' },
 ];
 
 export const mockCertifiedCarDeals: CertifiedCarDeal[] = [

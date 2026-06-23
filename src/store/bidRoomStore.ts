@@ -6,7 +6,7 @@ interface BidRoomState {
   initializeRooms: () => void;
   tickTimers: () => void;
   addQuoteToRoom: (roomId: string, quote: Quote) => void;
-  updateRoomStatus: (roomId: string, status: 'LIVE' | 'WAITING' | 'CLOSED') => void;
+  updateRoomStatus: (roomId: string, status: 'LIVE' | 'WAITING' | 'CLOSED' | 'INSTANT' | 'WON') => void;
 }
 
 export const useBidRoomStore = create<BidRoomState>((set) => ({
