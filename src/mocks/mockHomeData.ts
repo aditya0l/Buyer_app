@@ -110,11 +110,11 @@ export const mockBrandCategories: BrandCategory[] = [
 ];
 
 export const mockCircularBrands: CircularBrand[] = [
-  { id: 'bmw', name: 'BMW', logo: require('../assets/images/logos/bmw_logo_1782251709484.png'), emoji: '🇩🇪' },
-  { id: 'tesla', name: 'Tesla', logo: require('../assets/images/logos/tesla_logo_1782251718172.png'), emoji: '🇺🇸' },
-  { id: 'mercedes', name: 'Mercedes', logo: require('../assets/images/logos/mercedes_logo_1782251729411.png'), emoji: '🇩🇪' },
-  { id: 'honda', name: 'Honda', logo: require('../assets/images/logos/honda_logo_1782251739926.png'), emoji: '🇯🇵' },
-  { id: 'tata', name: 'Tata', logo: require('../assets/images/logos/tata_logo_1782251748649.png'), emoji: '🇮🇳' },
+  { id: 'bmw', name: 'BMW', logo: require('../assets/images/logos/bmw_logo_1782251709484.jpg'), emoji: '🇩🇪' },
+  { id: 'tesla', name: 'Tesla', logo: require('../assets/images/logos/tesla_logo_1782251718172.jpg'), emoji: '🇺🇸' },
+  { id: 'mercedes', name: 'Mercedes', logo: require('../assets/images/logos/mercedes_logo_1782251729411.jpg'), emoji: '🇩🇪' },
+  { id: 'honda', name: 'Honda', logo: require('../assets/images/logos/honda_logo_1782251739926.jpg'), emoji: '🇯🇵' },
+  { id: 'tata', name: 'Tata', logo: require('../assets/images/logos/tata_logo_1782251748649.jpg'), emoji: '🇮🇳' },
 ];
 
 export const mockCertifiedCarDeals: CertifiedCarDeal[] = [
