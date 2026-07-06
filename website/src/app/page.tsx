@@ -963,28 +963,24 @@ export default function Home() {
               <img 
                 src="/tyrestraight.svg" 
                 alt="" 
-                style={{ width: '254px', height: '200%', top: '-50%', left: '-60px', transform: 'rotate(-172.63deg)', opacity: 1 }} 
-                className="absolute max-w-none mix-blend-overlay object-cover" 
+                className="absolute top-0 left-[-2%] opacity-20 mix-blend-overlay" 
               />
               <img 
                 src="/tyrestraight.svg" 
                 alt="" 
-                style={{ width: '254px', height: '200%', top: '-50%', left: '80px', transform: 'rotate(-172.63deg)', opacity: 1 }} 
-                className="absolute max-w-none mix-blend-overlay object-cover" 
+                className="absolute top-0 left-[12%] opacity-20 mix-blend-overlay" 
               />
               
               {/* Right side tracks */}
               <img 
                 src="/tyrestraight.svg" 
                 alt="" 
-                style={{ width: '254px', height: '200%', top: '-50%', right: '80px', transform: 'rotate(-172.63deg)', opacity: 1 }} 
-                className="absolute max-w-none mix-blend-overlay object-cover" 
+                className="absolute top-0 right-[15%] opacity-20 mix-blend-overlay" 
               />
               <img 
                 src="/tyrestraight.svg" 
                 alt="" 
-                style={{ width: '254px', height: '200%', top: '-50%', right: '-60px', transform: 'rotate(-172.63deg)', opacity: 1 }} 
-                className="absolute max-w-none mix-blend-overlay object-cover" 
+                className="absolute top-0 right-[-2%] opacity-20 mix-blend-overlay" 
               />
             </div>
 
