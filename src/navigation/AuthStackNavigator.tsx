@@ -1,10 +1,8 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AuthStackParamList } from './types';
-import { SplashScreen } from '../screens/auth/SplashScreen';
+import { OnboardingFlowScreen } from '../screens/auth/OnboardingFlowScreen';
 import { OTPScreen } from '../screens/auth/OTPScreen';
-import { OnboardingCityScreen } from '../screens/auth/OnboardingCityScreen';
-import { OnboardingBrandsScreen } from '../screens/auth/OnboardingBrandsScreen';
 
 const Stack = createNativeStackNavigator<AuthStackParamList>();
 
@@ -17,10 +15,8 @@ export const AuthStackNavigator: React.FC = () => {
         animation: 'slide_from_right',
       }}
     >
-      <Stack.Screen name="Splash" component={SplashScreen} />
+      <Stack.Screen name="Splash" component={OnboardingFlowScreen} />
       <Stack.Screen name="OTP" component={OTPScreen} />
-      <Stack.Screen name="OnboardingCity" component={OnboardingCityScreen} />
-      <Stack.Screen name="OnboardingBrands" component={OnboardingBrandsScreen} />
     </Stack.Navigator>
   );
 };

@@ -12,7 +12,7 @@ type Props = NativeStackScreenProps<MainStackParamList, 'CommitmentPay'>;
 
 export const CommitmentPayScreen: React.FC<Props> = ({ route, navigation }) => {
   const { intentId, variantId, price } = route.params;
-  const [selectedPlan, setSelectedPlan] = useState<'token' | 'aadhaar' | 'phone'>('token');
+  const [selectedPlan, setSelectedPlan] = useState<'token' | 'free'>('token');
 
   const handleLaunch = () => {
     // In a real app, this would route to payment for token, or OTP screens for free options
@@ -90,13 +90,13 @@ export const CommitmentPayScreen: React.FC<Props> = ({ route, navigation }) => {
           </View>
         </TouchableOpacity>
 
-        {/* Aadhaar Card */}
-        <TouchableOpacity activeOpacity={0.9} onPress={() => setSelectedPlan('aadhaar')} style={[styles.card, styles.freeCard, selectedPlan === 'aadhaar' && styles.cardSelected]}>
+        {/* Explore Free Card */}
+        <TouchableOpacity activeOpacity={0.9} onPress={() => setSelectedPlan('free')} style={[styles.card, styles.freeCard, selectedPlan === 'free' && styles.cardSelected]}>
           <View style={[StyleSheet.absoluteFill, { opacity: 1, transform: [{ scale: 1.5 }] }]}>
             <WaveSvg width="100%" height="100%" />
           </View>
 
-          <Text style={styles.priceTextDark}>Free</Text>
+          <Text style={styles.priceTextDark}>Explore</Text>
           
           <View style={styles.fadeWrapper}>
             <View style={[styles.bar, { backgroundColor: '#3B82F6' }]} />
@@ -110,45 +110,14 @@ export const CommitmentPayScreen: React.FC<Props> = ({ route, navigation }) => {
                 </Defs>
                 <Rect width="100%" height="100%" fill="url(#blueFade)" />
               </Svg>
-              <Text style={styles.labelTextBlue}>Aadhaar OTP Verification</Text>
+              <Text style={styles.labelTextBlue}>Free</Text>
             </View>
           </View>
 
           <View style={styles.featureList}>
-            <FeatureItem type="blue" bold="Identity verified" text=" via UIDAI OTP — no money needed" />
-            <FeatureItem type="blue" bold="" text="Dealers get " boldSuffix="5-7 bids" postText=" on average" />
-            <FeatureItem type="grey" bold="" text="Slightly lower priority than token" />
-          </View>
-        </TouchableOpacity>
-
-        {/* Phone Card */}
-        <TouchableOpacity activeOpacity={0.9} onPress={() => setSelectedPlan('phone')} style={[styles.card, styles.freeCard, selectedPlan === 'phone' && styles.cardSelected]}>
-          <View style={[StyleSheet.absoluteFill, { opacity: 1, transform: [{ scale: 1.5 }] }]}>
-            <WaveSvg width="100%" height="100%" />
-          </View>
-
-          <Text style={styles.priceTextDark}>Free</Text>
-          
-          <View style={styles.fadeWrapper}>
-            <View style={[styles.bar, { backgroundColor: '#3B82F6' }]} />
-            <View style={styles.fadeContent}>
-              <Svg style={StyleSheet.absoluteFill}>
-                <Defs>
-                  <LinearGradient id="blueFade2" x1="0" y1="0" x2="1" y2="0">
-                    <Stop offset="0" stopColor="#3B82F6" stopOpacity="0.15" />
-                    <Stop offset="1" stopColor="#3B82F6" stopOpacity="0" />
-                  </LinearGradient>
-                </Defs>
-                <Rect width="100%" height="100%" fill="url(#blueFade2)" />
-              </Svg>
-              <Text style={styles.labelTextBlue}>Phone Verification</Text>
-            </View>
-          </View>
-
-          <View style={styles.featureList}>
-            <FeatureItem type="blue" bold="" text="Verify via SMS OTP on registered number" />
-            <FeatureItem type="grey" bold="" text="3-5 dealers on average · Lower urgency signal" />
-            <FeatureItem type="grey" bold="" text="Best for research / price discovery" />
+            <FeatureItem type="blue" bold="" text="Access to open bounties" />
+            <FeatureItem type="blue" bold="" text="Basic email notifications" />
+            <FeatureItem type="blue" bold="" text="Personal collector profile" />
           </View>
         </TouchableOpacity>
       </ScrollView>

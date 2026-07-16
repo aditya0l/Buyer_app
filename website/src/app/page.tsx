@@ -31,7 +31,7 @@ export default function Home() {
                 Let Dealers Quote For <span className="text-blue-600">Your Car</span>
               </h1>
               
-              <p className="text-slate-600 text-[17px] leading-relaxed mb-10 max-w-md font-medium">
+              <p className="text-slate-600 text-[17px] leading-relaxed mb-10 max-w-md font-medium font-outfit">
                 Post your car requirement once. Up to 18 verified dealers quote their lowest prices in real time. You pick the best deal — and save an average of <span className="font-bold text-blue-600">₹38,400.</span>
               </p>
 
@@ -158,7 +158,7 @@ export default function Home() {
                 <h3 className="font-bold text-[#0F172A] text-[17px] mb-0.5 font-outfit">Petrol</h3>
                 <p className="text-[11px] text-slate-500 leading-[1.4]">Explore petrol cars with competitive dealer offers.</p>
               </div>
-              <div className="absolute bottom-0 left-[15%] right-[15%] h-[3px] bg-[#4CAF50] rounded-t-sm"></div>
+              <div className="absolute bg-[#4CAF50]" style={{ width: '250px', height: '2px', top: '97.04px', left: '35px', borderRadius: '40px' }}></div>
             </div>
 
             <div className="bg-[#F9F9FF] rounded-[10px] p-[11px] border border-[#D9D9D9] hover:shadow-md transition-shadow cursor-pointer flex gap-[14px] items-center relative overflow-hidden h-[100px]">
@@ -169,7 +169,7 @@ export default function Home() {
                 <h3 className="font-bold text-[#0F172A] text-[17px] mb-0.5 font-outfit">Electric</h3>
                 <p className="text-[11px] text-slate-500 leading-[1.4]">Compare EV prices, benefits, and dealer savings.</p>
               </div>
-              <div className="absolute bottom-0 left-[15%] right-[15%] h-[3px] bg-[#FFB300] rounded-t-sm"></div>
+              <div className="absolute bg-[#FFB300]" style={{ width: '250px', height: '2px', top: '97.04px', left: '35px', borderRadius: '40px' }}></div>
             </div>
 
             <div className="bg-[#F9F9FF] rounded-[10px] p-[11px] border border-[#D9D9D9] hover:shadow-md transition-shadow cursor-pointer flex gap-[14px] items-center relative overflow-hidden h-[100px]">
@@ -180,7 +180,7 @@ export default function Home() {
                 <h3 className="font-bold text-[#0F172A] text-[17px] mb-0.5 font-outfit">Diesel</h3>
                 <p className="text-[11px] text-slate-500 leading-[1.4]">Find diesel cars with strong on-road price deals.</p>
               </div>
-              <div className="absolute bottom-0 left-[15%] right-[15%] h-[3px] bg-[#1E88E5] rounded-t-sm"></div>
+              <div className="absolute bg-[#1E88E5]" style={{ width: '250px', height: '2px', top: '97.04px', left: '35px', borderRadius: '40px' }}></div>
             </div>
 
             <div className="bg-[#F9F9FF] rounded-[10px] p-[11px] border border-[#D9D9D9] hover:shadow-md transition-shadow cursor-pointer flex gap-[14px] items-center relative overflow-hidden h-[100px]">
@@ -191,7 +191,7 @@ export default function Home() {
                 <h3 className="font-bold text-[#0F172A] text-[17px] mb-0.5 font-outfit">Hybrid</h3>
                 <p className="text-[11px] text-slate-500 leading-[1.4]">Browse hybrid cars with smart fuel efficiency.</p>
               </div>
-              <div className="absolute bottom-0 left-[15%] right-[15%] h-[3px] bg-[#FB8C00] rounded-t-sm"></div>
+              <div className="absolute bg-[#FB8C00]" style={{ width: '250px', height: '2px', top: '97.04px', left: '35px', borderRadius: '40px' }}></div>
             </div>
           </div>
         </section>
@@ -207,9 +207,9 @@ export default function Home() {
             <div className="relative pt-12">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
                 {/* Step 1 */}
-                <div className="bg-[#F2F7FF] rounded-[14px] p-6 pt-[52px] border border-[#D0E0FF] shadow-sm relative min-h-[166px] w-full max-w-[433px] mx-auto">
+                <div className="bg-[#F2F7FF] rounded-[14px] p-5 pt-[32px] border border-[#D0E0FF] shadow-sm relative w-full max-w-[433px] mx-auto">
                   {/* Dashed line to Step 2 */}
-                  <div className="absolute top-[-24px] left-[116px] w-[calc(150%-120px)] hidden md:flex items-center z-0 pointer-events-none">
+                  <div className="absolute top-[-24px] left-[130px] w-[calc(150%-134px)] hidden md:flex items-center z-0 pointer-events-none">
                     <div className="flex-1 h-[2px]" style={{ backgroundImage: 'linear-gradient(to right, #2563EB 50%, transparent 50%)', backgroundSize: '16px 2px', backgroundRepeat: 'repeat-x' }}></div>
                     <ChevronRight className="text-[#2563EB] -ml-1" size={18} strokeWidth={3} />
                   </div>
@@ -235,9 +235,9 @@ export default function Home() {
                 </div>
 
                 {/* Step 2 */}
-                <div className="bg-[#F2F7FF] rounded-[14px] p-6 pt-[52px] border border-[#D0E0FF] shadow-sm relative min-h-[166px] w-full max-w-[433px] mx-auto mt-16 md:mt-0">
+                <div className="bg-[#F2F7FF] rounded-[14px] p-5 pt-[32px] border border-[#D0E0FF] shadow-sm relative w-full max-w-[433px] mx-auto mt-16 md:mt-0">
                   {/* Dashed line to Step 3 */}
-                  <div className="absolute top-[-24px] left-[calc(50%+36px)] w-[calc(150%-120px)] hidden md:flex items-center z-0 pointer-events-none">
+                  <div className="absolute top-[-24px] left-[calc(50%+50px)] w-[calc(150%-134px)] hidden md:flex items-center z-0 pointer-events-none">
                     <div className="flex-1 h-[2px]" style={{ backgroundImage: 'linear-gradient(to right, #2563EB 50%, transparent 50%)', backgroundSize: '16px 2px', backgroundRepeat: 'repeat-x' }}></div>
                     <ChevronRight className="text-[#2563EB] -ml-1" size={18} strokeWidth={3} />
                   </div>
@@ -263,7 +263,7 @@ export default function Home() {
                 </div>
 
                 {/* Step 3 */}
-                <div className="bg-[#F2F7FF] rounded-[14px] p-6 pt-[52px] border border-[#D0E0FF] shadow-sm relative min-h-[166px] w-full max-w-[433px] mx-auto mt-16 md:mt-0">
+                <div className="bg-[#F2F7FF] rounded-[14px] p-5 pt-[32px] border border-[#D0E0FF] shadow-sm relative w-full max-w-[433px] mx-auto mt-16 md:mt-0">
                   {/* SVG Cutout Mask */}
                   <div className="absolute -top-[1px] right-[10px] w-[140px] h-[26px] z-10">
                     <div className="absolute top-0 left-[33px] right-[33px] h-[2px] bg-[#F8FAFC]"></div>
@@ -303,8 +303,8 @@ export default function Home() {
             
             {/* Bid Room Card 1 (Live) */}
             <div className="bg-white rounded-[16px] p-4 border border-slate-100 shadow-[0_4px_20px_rgb(0,0,0,0.04)] flex flex-col relative overflow-hidden group hover:shadow-[0_4px_25px_rgb(0,0,0,0.08)] transition-shadow">
-              {/* Background Diagonal Shape */}
-              <div className="absolute top-0 right-0 w-full h-[150px] bg-[#E3EAF6] z-0" style={{ clipPath: 'polygon(30% 0, 100% 0, 100% 80%)' }}></div>
+              {/* Background Gradient */}
+              <div className="absolute z-0 pointer-events-none" style={{ width: '299px', height: '110px', top: '14.48px', left: '8.52px', borderRadius: '10px', background: 'linear-gradient(270deg, #CDDCF1 25.42%, #FAFBFF 100%)' }}></div>
               
               {/* Badge */}
               <div className="absolute bg-[#65B764] text-white text-[11px] font-bold z-10 shadow-sm"
@@ -312,14 +312,14 @@ export default function Home() {
                      width: "65.47px",
                      height: "21.21px",
                      top: "10.66px",
-                     right: "0px",
+                     left: "0px",
                      borderWidth: "2px",
                      borderStyle: "solid",
                      borderColor: "#ffffff",
                      borderTopLeftRadius: "2px",
                      borderTopRightRadius: "2px",
-                     borderBottomRightRadius: "2px",
-                     borderBottomLeftRadius: "14px",
+                     borderBottomRightRadius: "14px",
+                     borderBottomLeftRadius: "2px",
                      opacity: 1
                    }}>
                 <div className="w-full h-full flex items-center justify-center gap-1">
@@ -380,19 +380,35 @@ export default function Home() {
               </div>
               
               {/* Button */}
-              <button className="w-full bg-[#2563EB] hover:bg-blue-700 text-white font-medium py-2.5 rounded-[10px] text-[13px] transition-colors relative z-10 mt-auto">
+              <button className="w-full bg-[#2563EB] hover:bg-blue-700 text-white font-medium py-2.5 rounded-full text-[13px] transition-colors relative z-10 mt-auto">
                 View Room
               </button>
             </div>
 
             {/* Bid Room Card 2 (Waiting) */}
             <div className="bg-white rounded-[16px] p-4 border border-slate-100 shadow-[0_4px_20px_rgb(0,0,0,0.04)] flex flex-col relative overflow-hidden group hover:shadow-[0_4px_25px_rgb(0,0,0,0.08)] transition-shadow">
-              {/* Background Diagonal Shape */}
-              <div className="absolute top-0 right-0 w-full h-[150px] bg-[#E3EAF6] z-0" style={{ clipPath: 'polygon(30% 0, 100% 0, 100% 80%)' }}></div>
+              {/* Background Gradient */}
+              <div className="absolute z-0 pointer-events-none" style={{ width: '299px', height: '110px', top: '14.48px', left: '8.52px', borderRadius: '10px', background: 'linear-gradient(270deg, #CDDCF1 25.42%, #FAFBFF 100%)' }}></div>
               
               {/* Badge */}
-              <div className="absolute top-4 left-0 bg-[#FC8C36] text-white text-[11px] font-bold px-2.5 py-1 rounded-r-md flex items-center gap-1 z-10 shadow-sm">
-                <Clock size={11} strokeWidth={3} /> Waiting
+              <div className="absolute bg-[#FC8C36] text-white text-[11px] font-bold z-10 shadow-sm"
+                   style={{
+                     width: "75px",
+                     height: "21.21px",
+                     top: "10.66px",
+                     left: "0px",
+                     borderWidth: "2px",
+                     borderStyle: "solid",
+                     borderColor: "#ffffff",
+                     borderTopLeftRadius: "2px",
+                     borderTopRightRadius: "2px",
+                     borderBottomRightRadius: "14px",
+                     borderBottomLeftRadius: "2px",
+                     opacity: 1
+                   }}>
+                <div className="w-full h-full flex items-center justify-center gap-1">
+                  <Clock size={11} strokeWidth={3} /> Waiting
+                </div>
               </div>
               
               {/* Car Image */}
@@ -449,15 +465,15 @@ export default function Home() {
               </div>
               
               {/* Button */}
-              <button className="w-full bg-[#2563EB] hover:bg-blue-700 text-white font-medium py-2.5 rounded-[10px] text-[13px] transition-colors relative z-10 mt-auto">
+              <button className="w-full bg-[#2563EB] hover:bg-blue-700 text-white font-medium py-2.5 rounded-full text-[13px] transition-colors relative z-10 mt-auto">
                 View Room
               </button>
             </div>
 
             {/* Bid Room Card 3 (Live) */}
             <div className="bg-white rounded-[16px] p-4 border border-slate-100 shadow-[0_4px_20px_rgb(0,0,0,0.04)] flex flex-col relative overflow-hidden group hover:shadow-[0_4px_25px_rgb(0,0,0,0.08)] transition-shadow">
-              {/* Background Diagonal Shape */}
-              <div className="absolute top-0 right-0 w-full h-[150px] bg-[#E3EAF6] z-0" style={{ clipPath: 'polygon(30% 0, 100% 0, 100% 80%)' }}></div>
+              {/* Background Gradient */}
+              <div className="absolute z-0 pointer-events-none" style={{ width: '299px', height: '110px', top: '14.48px', left: '8.52px', borderRadius: '10px', background: 'linear-gradient(270deg, #CDDCF1 25.42%, #FAFBFF 100%)' }}></div>
               
               {/* Badge */}
               <div className="absolute bg-[#65B764] text-white text-[11px] font-bold z-10 shadow-sm"
@@ -465,14 +481,14 @@ export default function Home() {
                      width: "65.47px",
                      height: "21.21px",
                      top: "10.66px",
-                     right: "0px",
+                     left: "0px",
                      borderWidth: "2px",
                      borderStyle: "solid",
                      borderColor: "#ffffff",
                      borderTopLeftRadius: "2px",
                      borderTopRightRadius: "2px",
-                     borderBottomRightRadius: "2px",
-                     borderBottomLeftRadius: "14px",
+                     borderBottomRightRadius: "14px",
+                     borderBottomLeftRadius: "2px",
                      opacity: 1
                    }}>
                 <div className="w-full h-full flex items-center justify-center gap-1">
@@ -533,19 +549,35 @@ export default function Home() {
               </div>
               
               {/* Button */}
-              <button className="w-full bg-[#2563EB] hover:bg-blue-700 text-white font-medium py-2.5 rounded-[10px] text-[13px] transition-colors relative z-10 mt-auto">
+              <button className="w-full bg-[#2563EB] hover:bg-blue-700 text-white font-medium py-2.5 rounded-full text-[13px] transition-colors relative z-10 mt-auto">
                 View Room
               </button>
             </div>
 
             {/* Bid Room Card 4 (Waiting) */}
             <div className="bg-white rounded-[16px] p-4 border border-slate-100 shadow-[0_4px_20px_rgb(0,0,0,0.04)] flex flex-col relative overflow-hidden group hover:shadow-[0_4px_25px_rgb(0,0,0,0.08)] transition-shadow">
-              {/* Background Diagonal Shape */}
-              <div className="absolute top-0 right-0 w-full h-[150px] bg-[#E3EAF6] z-0" style={{ clipPath: 'polygon(30% 0, 100% 0, 100% 80%)' }}></div>
+              {/* Background Gradient */}
+              <div className="absolute z-0 pointer-events-none" style={{ width: '299px', height: '110px', top: '14.48px', left: '8.52px', borderRadius: '10px', background: 'linear-gradient(270deg, #CDDCF1 25.42%, #FAFBFF 100%)' }}></div>
               
               {/* Badge */}
-              <div className="absolute top-4 left-0 bg-[#FC8C36] text-white text-[11px] font-bold px-2.5 py-1 rounded-r-md flex items-center gap-1 z-10 shadow-sm">
-                <Clock size={11} strokeWidth={3} /> Waiting
+              <div className="absolute bg-[#FC8C36] text-white text-[11px] font-bold z-10 shadow-sm"
+                   style={{
+                     width: "75px",
+                     height: "21.21px",
+                     top: "10.66px",
+                     left: "0px",
+                     borderWidth: "2px",
+                     borderStyle: "solid",
+                     borderColor: "#ffffff",
+                     borderTopLeftRadius: "2px",
+                     borderTopRightRadius: "2px",
+                     borderBottomRightRadius: "14px",
+                     borderBottomLeftRadius: "2px",
+                     opacity: 1
+                   }}>
+                <div className="w-full h-full flex items-center justify-center gap-1">
+                  <Clock size={11} strokeWidth={3} /> Waiting
+                </div>
               </div>
               
               {/* Car Image */}
@@ -601,7 +633,7 @@ export default function Home() {
               </div>
               
               {/* Button */}
-              <button className="w-full bg-[#2563EB] hover:bg-blue-700 text-white font-medium py-2.5 rounded-[10px] text-[13px] transition-colors relative z-10 mt-auto">
+              <button className="w-full bg-[#2563EB] hover:bg-blue-700 text-white font-medium py-2.5 rounded-full text-[13px] transition-colors relative z-10 mt-auto">
                 View Room
               </button>
             </div>
@@ -633,16 +665,16 @@ export default function Home() {
 
         {/* --- COMPARE MODELS BANNER --- */}
         <section className="w-full bg-[#F8FAFC] pb-20 px-[8%]">
-          <div className="w-full rounded-[24px] relative overflow-hidden flex flex-col md:flex-row items-center min-h-[360px] shadow-lg" style={{ background: 'linear-gradient(93.05deg, #1246B7 1.54%, #2563EB 50.01%, #0D3CA2 98.49%)' }}>
+          <div className="w-full rounded-[24px] relative overflow-hidden flex flex-col md:flex-row items-center min-h-[250px] shadow-lg" style={{ background: 'linear-gradient(93.05deg, #1246B7 1.54%, #2563EB 50.01%, #0D3CA2 98.49%)' }}>
             {/* Tyre Marks Background */}
             <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden rounded-[24px]">
               <img src="/tyrecurve.svg" alt="" className="absolute left-[-2%] top-[-10%] h-[120%] w-auto object-contain opacity-90 mix-blend-overlay" />
               <img src="/tyrecurve2.svg" alt="" className="absolute right-[-2%] top-[-10%] h-[120%] w-auto object-contain opacity-90 mix-blend-overlay" />
             </div>
             
-            <div className="relative z-10 flex-1 py-16 px-10 md:px-20 flex flex-col items-center text-center">
+            <div className="relative z-10 flex-1 py-10 px-10 md:px-20 flex flex-col items-center text-center">
               <div className="text-[#FFB067] font-bold tracking-[0.2em] text-[13px] mb-3 uppercase">Feature</div>
-              <h2 className="text-[40px] font-bold text-white mb-4 font-outfit leading-tight">Compare Models</h2>
+              <h2 className="text-[32px] md:text-[40px] font-bold text-white mb-4 font-outfit leading-tight">Compare Models</h2>
               <p className="text-blue-100 max-w-2xl mx-auto mb-8 text-[15px] leading-relaxed">
                 Pick any 2 cars side-by-side and compare specs, price, features, fuel type, body style, and expected CarBounty savings before you decide.
               </p>
@@ -676,7 +708,7 @@ export default function Home() {
             <div className="bg-white rounded-[16px] border border-[#D0E0FF] overflow-hidden shadow-sm">
               <div className="p-4 pb-5">
                 {/* Top Pill */}
-                <div className="relative bg-[#F0F5FA] rounded-[16px] p-4 flex items-center mt-3 mb-6 min-h-[80px]">
+                <div className="relative rounded-[10px] p-4 flex items-center mt-3 mb-6 min-h-[80px]" style={{ background: 'linear-gradient(90deg, #CFDDF2 -3.24%, #F9FAFF 100%)' }}>
                   <div className="absolute -top-3.5 -right-1 bg-[#65B764] text-white text-[12px] xl:text-[14px] font-medium z-10 shadow-sm"
                        style={{
                          width: "65.47px",
@@ -709,17 +741,17 @@ export default function Home() {
                 {/* Price Section */}
                 <div className="flex flex-row justify-between items-stretch px-1">
                   <div className="flex flex-col flex-1 pr-1">
-                    <span className="text-slate-500 text-[10px] xl:text-[12px] leading-tight mb-1 min-h-[28px] md:min-h-[32px]">On-Road Price<br/> Paid</span>
+                    <span className="text-slate-500 text-[10px] xl:text-[12px] leading-tight mb-1 min-h-[16px] whitespace-nowrap">On-Road Price Paid</span>
                     <span className="font-bold text-[#0F172A] text-[14px] xl:text-[16px]">₹6,10,000</span>
                   </div>
-                  <div className="w-[1px] bg-slate-200 my-1"></div>
-                  <div className="flex flex-col flex-1 px-2">
-                    <span className="text-slate-500 text-[10px] xl:text-[12px] leading-tight mb-1 min-h-[28px] md:min-h-[32px]">Ex-Showroow</span>
+                  <div className="w-[1px] bg-slate-200 my-1 mx-2"></div>
+                  <div className="flex flex-col flex-1 px-1">
+                    <span className="text-slate-500 text-[10px] xl:text-[12px] leading-tight mb-1 min-h-[16px] whitespace-nowrap">Ex-Showroom</span>
                     <span className="font-bold text-slate-400 text-[14px] xl:text-[16px]">₹5,82,000</span>
                   </div>
-                  <div className="w-[1px] bg-slate-200 my-1"></div>
-                  <div className="flex flex-col flex-1 pl-2">
-                    <span className="text-slate-500 text-[10px] xl:text-[12px] leading-tight mb-1 min-h-[28px] md:min-h-[32px]">Saved VIA<br/> Carbounty</span>
+                  <div className="w-[1px] bg-slate-200 my-1 mx-2"></div>
+                  <div className="flex flex-col flex-1 pl-1">
+                    <span className="text-slate-500 text-[10px] xl:text-[12px] leading-tight mb-1 min-h-[16px] whitespace-nowrap">Saved VIA Carbounty</span>
                     <span className="font-bold text-[#207320] text-[14px] xl:text-[16px]">₹28,000</span>
                   </div>
                 </div>
@@ -749,7 +781,7 @@ export default function Home() {
             <div className="bg-white rounded-[16px] border border-[#D0E0FF] overflow-hidden shadow-sm">
               <div className="p-4 pb-5">
                 {/* Top Pill */}
-                <div className="relative bg-[#F0F5FA] rounded-[16px] p-4 flex items-center mt-3 mb-6 min-h-[80px]">
+                <div className="relative rounded-[10px] p-4 flex items-center mt-3 mb-6 min-h-[80px]" style={{ background: 'linear-gradient(90deg, #CFDDF2 -3.24%, #F9FAFF 100%)' }}>
                   <div className="absolute -top-3.5 -right-1 bg-[#65B764] text-white text-[12px] xl:text-[14px] font-medium z-10 shadow-sm"
                        style={{
                          width: "65.47px",
@@ -782,18 +814,18 @@ export default function Home() {
                 {/* Price Section */}
                 <div className="flex flex-row justify-between items-stretch px-1">
                   <div className="flex flex-col flex-1 pr-1">
-                    <span className="text-slate-500 text-[10px] xl:text-[12px] leading-tight mb-1 min-h-[28px] md:min-h-[32px]">On-Road Price<br/> Paid</span>
-                    <span className="font-bold text-[#0F172A] text-[14px] xl:text-[16px]">₹13,18,000</span>
+                    <span className="text-slate-500 text-[10px] xl:text-[12px] leading-tight mb-1 min-h-[16px] whitespace-nowrap">On-Road Price Paid</span>
+                    <span className="font-bold text-[#0F172A] text-[14px] xl:text-[16px]">₹11,40,000</span>
                   </div>
-                  <div className="w-[1px] bg-slate-200 my-1"></div>
-                  <div className="flex flex-col flex-1 px-2">
-                    <span className="text-slate-500 text-[10px] xl:text-[12px] leading-tight mb-1 min-h-[28px] md:min-h-[32px]">Ex-Showroow</span>
-                    <span className="font-bold text-slate-400 text-[14px] xl:text-[16px]">₹12,76,900</span>
+                  <div className="w-[1px] bg-slate-200 my-1 mx-2"></div>
+                  <div className="flex flex-col flex-1 px-1">
+                    <span className="text-slate-500 text-[10px] xl:text-[12px] leading-tight mb-1 min-h-[16px] whitespace-nowrap">Ex-Showroom</span>
+                    <span className="font-bold text-slate-400 text-[14px] xl:text-[16px]">₹10,95,000</span>
                   </div>
-                  <div className="w-[1px] bg-slate-200 my-1"></div>
-                  <div className="flex flex-col flex-1 pl-2">
-                    <span className="text-slate-500 text-[10px] xl:text-[12px] leading-tight mb-1 min-h-[28px] md:min-h-[32px]">Saved VIA<br/> Carbounty</span>
-                    <span className="font-bold text-[#207320] text-[14px] xl:text-[16px]">₹42,000</span>
+                  <div className="w-[1px] bg-slate-200 my-1 mx-2"></div>
+                  <div className="flex flex-col flex-1 pl-1">
+                    <span className="text-slate-500 text-[10px] xl:text-[12px] leading-tight mb-1 min-h-[16px] whitespace-nowrap">Saved VIA Carbounty</span>
+                    <span className="font-bold text-[#207320] text-[14px] xl:text-[16px]">₹45,000</span>
                   </div>
                 </div>
               </div>
@@ -822,7 +854,7 @@ export default function Home() {
             <div className="bg-white rounded-[16px] border border-[#D0E0FF] overflow-hidden shadow-sm">
               <div className="p-4 pb-5">
                 {/* Top Pill */}
-                <div className="relative bg-[#F0F5FA] rounded-[16px] p-4 flex items-center mt-3 mb-6 min-h-[80px]">
+                <div className="relative rounded-[10px] p-4 flex items-center mt-3 mb-6 min-h-[80px]" style={{ background: 'linear-gradient(90deg, #CFDDF2 -3.24%, #F9FAFF 100%)' }}>
                   <div className="absolute -top-3.5 -right-1 bg-[#65B764] text-white text-[12px] xl:text-[14px] font-medium z-10 shadow-sm"
                        style={{
                          width: "65.47px",
@@ -855,17 +887,17 @@ export default function Home() {
                 {/* Price Section */}
                 <div className="flex flex-row justify-between items-stretch px-1">
                   <div className="flex flex-col flex-1 pr-1">
-                    <span className="text-slate-500 text-[10px] xl:text-[12px] leading-tight mb-1 min-h-[28px] md:min-h-[32px]">On-Road Price<br/> Paid</span>
+                    <span className="text-slate-500 text-[10px] xl:text-[12px] leading-tight mb-1 min-h-[16px] whitespace-nowrap">On-Road Price Paid</span>
                     <span className="font-bold text-[#0F172A] text-[14px] xl:text-[16px]">₹6,10,000</span>
                   </div>
-                  <div className="w-[1px] bg-slate-200 my-1"></div>
-                  <div className="flex flex-col flex-1 px-2">
-                    <span className="text-slate-500 text-[10px] xl:text-[12px] leading-tight mb-1 min-h-[28px] md:min-h-[32px]">Ex-Showroow</span>
+                  <div className="w-[1px] bg-slate-200 my-1 mx-2"></div>
+                  <div className="flex flex-col flex-1 px-1">
+                    <span className="text-slate-500 text-[10px] xl:text-[12px] leading-tight mb-1 min-h-[16px] whitespace-nowrap">Ex-Showroom</span>
                     <span className="font-bold text-slate-400 text-[14px] xl:text-[16px]">₹5,82,000</span>
                   </div>
-                  <div className="w-[1px] bg-slate-200 my-1"></div>
-                  <div className="flex flex-col flex-1 pl-2">
-                    <span className="text-slate-500 text-[10px] xl:text-[12px] leading-tight mb-1 min-h-[28px] md:min-h-[32px]">Saved VIA<br/> Carbounty</span>
+                  <div className="w-[1px] bg-slate-200 my-1 mx-2"></div>
+                  <div className="flex flex-col flex-1 pl-1">
+                    <span className="text-slate-500 text-[10px] xl:text-[12px] leading-tight mb-1 min-h-[16px] whitespace-nowrap">Saved VIA Carbounty</span>
                     <span className="font-bold text-[#207320] text-[14px] xl:text-[16px]">₹28,000</span>
                   </div>
                 </div>
@@ -963,24 +995,24 @@ export default function Home() {
               <img 
                 src="/tyrestraight.svg" 
                 alt="" 
-                className="absolute top-0 left-[-2%] opacity-20 mix-blend-overlay" 
+                className="absolute top-[50%] -translate-y-1/2 left-[-2%] h-[520px] w-auto max-w-none opacity-20 mix-blend-overlay" 
               />
               <img 
                 src="/tyrestraight.svg" 
                 alt="" 
-                className="absolute top-0 left-[12%] opacity-20 mix-blend-overlay" 
+                className="absolute top-[50%] -translate-y-1/2 left-[12%] h-[520px] w-auto max-w-none opacity-20 mix-blend-overlay" 
               />
               
               {/* Right side tracks */}
               <img 
                 src="/tyrestraight.svg" 
                 alt="" 
-                className="absolute top-0 right-[15%] opacity-20 mix-blend-overlay" 
+                className="absolute top-[50%] -translate-y-1/2 right-[15%] h-[520px] w-auto max-w-none opacity-20 mix-blend-overlay" 
               />
               <img 
                 src="/tyrestraight.svg" 
                 alt="" 
-                className="absolute top-0 right-[-2%] opacity-20 mix-blend-overlay" 
+                className="absolute top-[50%] -translate-y-1/2 right-[-2%] h-[520px] w-auto max-w-none opacity-20 mix-blend-overlay" 
               />
             </div>
 

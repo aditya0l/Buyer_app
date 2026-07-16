@@ -16,6 +16,7 @@ import { IntentSuccessScreen } from '../screens/intent/IntentSuccessScreen';
 
 // BidRoom
 import { BidRoomScreen } from '../screens/bidroom/BidRoomScreen';
+import { CarDetailsScreen } from '../screens/bidroom/CarDetailsScreen';
 import { BidRoomListScreen } from '../screens/bidroom/BidRoomListScreen';
 import { SelectWinnerScreen } from '../screens/bidroom/SelectWinnerScreen';
 import { ComparisonGroupScreen } from '../screens/bidroom/ComparisonGroupScreen';
@@ -106,6 +107,7 @@ export const MainStackNavigator: React.FC = () => {
       {/* BidRoom */}
       <Stack.Screen name="BidRoomList" component={BidRoomListScreen} />
       <Stack.Screen name="BidRoom" component={BidRoomScreen} />
+      <Stack.Screen name="CarDetails" component={CarDetailsScreen} />
       <Stack.Screen name="SelectWinner" component={SelectWinnerScreen} />
       <Stack.Screen name="ComparisonGroup" component={ComparisonGroupScreen} />
 

@@ -33,6 +33,7 @@ export type MainStackParamList = {
 
   // BidRoom Screens
   BidRoom: { roomId: string };
+  CarDetails: { vehicleId?: string };
   BidRoomList: undefined;
   SelectWinner: { roomId: string; quoteId: string };
   ComparisonGroup: { childRoomIds: string[] };

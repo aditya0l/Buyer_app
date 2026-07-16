@@ -42,7 +42,7 @@ export function Header() {
             <CarBountyLogo className="h-9 w-auto" />
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-8 text-sm font-semibold text-slate-700 font-outfit">
+          <nav className="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-700 font-outfit">
             <Link href="#" className="hover:text-blue-600 transition-colors">Browse Cars</Link>
             <Link href="#" className="hover:text-blue-600 transition-colors">Services</Link>
             <Link href="#" className="hover:text-blue-600 transition-colors">My Room</Link>
@@ -54,6 +54,10 @@ export function Header() {
                 <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </div>
+            {/* New Onboarding Link */}
+            <Link href="/onboarding" className="text-blue-600 font-bold border border-blue-200 px-3 py-1 rounded-full bg-blue-50 hover:bg-blue-100 transition-colors">
+              Onboarding App
+            </Link>
           </nav>
 
           <div className="flex items-center gap-3">

@@ -24,15 +24,15 @@ export function Footer() {
         {/* Top Section */}
         <div className="grid grid-cols-1 md:grid-cols-5 gap-12 mb-16">
           <div className="md:col-span-1">
-            <h3 className="text-[14px] font-bold mb-6 text-white uppercase inline-block border-b-2 border-blue-600 pb-1">About Us</h3>
-            <p className="text-[#9CA3AF] text-[13px] leading-relaxed pr-4">
+            <h3 className="font-outfit font-semibold text-[18px] leading-none mb-6 text-white capitalize inline-block pb-1">About Us</h3>
+            <p className="font-outfit font-light text-[16px] leading-[26px] capitalize text-[#9CA3AF] pr-4">
               CarBounty Helps New Car Buyers Make Smarter Purchase Decisions By Comparing Cars, Creating Bid Rooms, Receiving Verified Dealer Offers, And Tracking Real Savings In One Place.
             </p>
           </div>
           
           <div>
-            <h3 className="text-[14px] font-bold mb-6 text-white uppercase inline-block border-b-2 border-blue-600 pb-1">Explore</h3>
-            <ul className="flex flex-col gap-4 text-[#9CA3AF] text-[13px]">
+            <h3 className="font-outfit font-semibold text-[18px] leading-none mb-6 text-white capitalize inline-block pb-1">Explore</h3>
+            <ul className="flex flex-col gap-4 text-[#9CA3AF] font-outfit font-light text-[16px] leading-[26px] capitalize">
               <li><Link href="#" className="hover:text-blue-500 transition-colors">Browse Cars</Link></li>
               <li><Link href="#" className="hover:text-blue-500 transition-colors">Compare Models</Link></li>
               <li><Link href="#" className="hover:text-blue-500 transition-colors">Browse by Brand</Link></li>
@@ -42,8 +42,8 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-[14px] font-bold mb-6 text-white uppercase inline-block border-b-2 border-blue-600 pb-1">Carbounty</h3>
-            <ul className="flex flex-col gap-4 text-[#9CA3AF] text-[13px]">
+            <h3 className="font-outfit font-semibold text-[18px] leading-none mb-6 text-white capitalize inline-block pb-1">Carbounty</h3>
+            <ul className="flex flex-col gap-4 text-[#9CA3AF] font-outfit font-light text-[16px] leading-[26px] capitalize">
               <li><Link href="#" className="hover:text-blue-500 transition-colors">How It Works</Link></li>
               <li><Link href="#" className="hover:text-blue-500 transition-colors">Bid Rooms</Link></li>
               <li><Link href="#" className="hover:text-blue-500 transition-colors">Recent Purchases</Link></li>
@@ -53,8 +53,8 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-[14px] font-bold mb-6 text-white uppercase inline-block border-b-2 border-blue-600 pb-1">Services</h3>
-            <ul className="flex flex-col gap-4 text-[#9CA3AF] text-[13px]">
+            <h3 className="font-outfit font-semibold text-[18px] leading-none mb-6 text-white capitalize inline-block pb-1">Services</h3>
+            <ul className="flex flex-col gap-4 text-[#9CA3AF] font-outfit font-light text-[16px] leading-[26px] capitalize">
               <li><Link href="#" className="hover:text-blue-500 transition-colors">Quote Room Creation</Link></li>
               <li><Link href="#" className="hover:text-blue-500 transition-colors">Dealer Quoting</Link></li>
               <li><Link href="#" className="hover:text-blue-500 transition-colors">Finance Pre-Approval</Link></li>
@@ -64,8 +64,8 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-[14px] font-bold mb-6 text-white uppercase inline-block border-b-2 border-blue-600 pb-1">Support</h3>
-            <ul className="flex flex-col gap-4 text-[#9CA3AF] text-[13px]">
+            <h3 className="font-outfit font-semibold text-[18px] leading-none mb-6 text-white capitalize inline-block pb-1">Support</h3>
+            <ul className="flex flex-col gap-4 text-[#9CA3AF] font-outfit font-light text-[16px] leading-[26px] capitalize">
               <li><Link href="#" className="hover:text-blue-500 transition-colors">Contact Us</Link></li>
               <li><Link href="#" className="hover:text-blue-500 transition-colors">FAQs</Link></li>
               <li><Link href="#" className="hover:text-blue-500 transition-colors">Help Center</Link></li>
@@ -82,8 +82,8 @@ export function Footer() {
               <MapPin size={18} className="text-[#3B82F6]" />
             </div>
             <div>
-              <h4 className="font-semibold text-white mb-1 text-[14px]">Address</h4>
-              <p className="text-[#9CA3AF] text-[12px] leading-tight">Mehrauli-Gurgaon Road, Sector 16, Gurugram,</p>
+              <h4 className="font-outfit font-semibold text-[18px] leading-none text-white mb-2 capitalize">Address</h4>
+              <p className="font-outfit font-light text-[16px] leading-[26px] capitalize text-[#9CA3AF]">Mehrauli-Gurgaon Road, Sector 16, Gurugram,</p>
             </div>
           </div>
           
@@ -92,8 +92,8 @@ export function Footer() {
               <Mail size={18} className="text-[#3B82F6]" />
             </div>
             <div>
-              <h4 className="font-semibold text-white mb-1 text-[14px]">Email Address</h4>
-              <p className="text-[#9CA3AF] text-[12px] leading-tight">Sales@Carbounty.Com</p>
+              <h4 className="font-outfit font-semibold text-[18px] leading-none text-white mb-2 capitalize">Email Address</h4>
+              <p className="font-outfit font-light text-[16px] leading-[26px] capitalize text-[#9CA3AF]">Sales@Carbounty.Com</p>
             </div>
           </div>
           
@@ -102,8 +102,8 @@ export function Footer() {
               <Phone size={18} className="text-[#3B82F6]" />
             </div>
             <div>
-              <h4 className="font-semibold text-white mb-1 text-[14px]">Phone No.</h4>
-              <p className="text-[#9CA3AF] text-[12px] leading-tight">+91 79090 83806</p>
+              <h4 className="font-outfit font-semibold text-[18px] leading-none text-white mb-2 capitalize">Phone No.</h4>
+              <p className="font-outfit font-light text-[16px] leading-[26px] capitalize text-[#9CA3AF]">+91 79090 83806</p>
             </div>
           </div>
           
