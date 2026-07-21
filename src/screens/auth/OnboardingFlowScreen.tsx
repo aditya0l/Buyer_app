@@ -370,6 +370,7 @@ export const OnboardingFlowScreen: React.FC<Props> = ({ navigation }) => {
                     style={{
                       width: HERO_BASE_WIDTH,
                       height: HERO_BASE_HEIGHT,
+                      overflow: 'visible',
                     }}
                   >
                     {/* Tiled Tire Marks to reach screen edges without ruining aspect ratio/angle */}
@@ -433,12 +434,7 @@ export const OnboardingFlowScreen: React.FC<Props> = ({ navigation }) => {
                       </View>
                     </View>
 
-                    {/* 
-                    Original Car SVG perfectly aligned and rendered natively! 
-                    We apply scaleX: -1 because React Native SVG has a bug where it 
-                    ignores the horizontal flip matrix embedded inside the SVG.
-                    This perfectly mirrors it to come out of the left edge like Figma!
-                  */}
+                    {/* Car SVG inside the wrapper, but with overflow visible */}
                     <View
                       style={{
                         position: 'absolute',
@@ -446,6 +442,7 @@ export const OnboardingFlowScreen: React.FC<Props> = ({ navigation }) => {
                         left: -89,
                         width: 618,
                         height: 718,
+                        overflow: 'visible',
                       }}
                       pointerEvents="none"
                     >
