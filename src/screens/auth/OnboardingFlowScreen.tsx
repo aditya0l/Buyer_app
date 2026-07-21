@@ -14,22 +14,42 @@ import {
   KeyboardAvoidingView,
   Animated,
   Easing,
+  useWindowDimensions,
 } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AuthStackParamList } from '../../navigation/types';
 import { colors } from '../../constants/colors';
 import { useAuthStore } from '../../store/authStore';
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import Svg, { Polygon, Defs, LinearGradient, Stop, Rect, Ellipse } from 'react-native-svg';
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context';
+import Svg, {
+  Polygon,
+  Defs,
+  LinearGradient,
+  Stop,
+  Rect,
+  Ellipse,
+  G,
+} from 'react-native-svg';
 
 // Icons
-import { ArrowRight, Car, UserCheck, CheckCircle2, ChevronDown, Check } from 'lucide-react-native';
+import {
+  ArrowRight,
+  Car,
+  UserCheck,
+  CheckCircle2,
+  ChevronDown,
+  Check,
+} from 'lucide-react-native';
 
 // SVGs
 import TyreStraight from '../../assets/tyrestraight.svg';
 import TyreCurve from '../../assets/tyrecurve.svg';
-import SuvImage from '../../assets/image-4.svg';
+import TopBarLogo from '../../assets/blacklogo.svg';
 import CarOnboard from '../../assets/caronboard.svg';
+import SuvImage from '../../assets/image-4.svg';
 import SalesmanOnboard from '../../assets/salesmanonboard.svg';
 import TyreOnboard2 from '../../assets/tyreonboard2.svg';
 import CarBountyLight from '../../assets/carbountylight.svg';
@@ -41,11 +61,15 @@ import TyreMarkOnboard3 from '../../assets/tyremarkonboard3.svg';
 import LoginTyreMark from '../../assets/logintyremark.svg';
 import BlackLogo from '../../assets/blacklogo.svg';
 
-if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
+if (
+  Platform.OS === 'android' &&
+  UIManager.setLayoutAnimationEnabledExperimental
+) {
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
-const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
+const HERO_BASE_WIDTH = 440;
+const HERO_BASE_HEIGHT = 718;
 
 type Props = NativeStackScreenProps<AuthStackParamList, 'Splash'>;
 
@@ -54,9 +78,27 @@ export const OnboardingFlowScreen: React.FC<Props> = ({ navigation }) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [whatsappUpdate, setWhatsappUpdate] = useState(true);
   const insets = useSafeAreaInsets();
-  
+  const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = useWindowDimensions();
+
+  const HERO_CONTAINER_HEIGHT = SCREEN_HEIGHT * 0.7;
+  const heroScale = Math.min(
+    SCREEN_WIDTH / HERO_BASE_WIDTH,
+    HERO_CONTAINER_HEIGHT / HERO_BASE_HEIGHT,
+  );
+
+  const originalHeroOffsetX = (SCREEN_WIDTH - HERO_BASE_WIDTH * heroScale) / 2;
+
+  // The X offset centers the 440px wide graphic inside the screen
+  const polyPtX = (x: number) => x * heroScale + originalHeroOffsetX;
+  const polyPtY = (y: number) => (y - 49.44) * heroScale;
+  const bgPoints = `${polyPtX(-2000)},${polyPtY(-2000)} ${polyPtX(
+    3000,
+  )},${polyPtY(-2000)} ${polyPtX(3000)},${polyPtY(1819)} ${polyPtX(
+    -2000,
+  )},${polyPtY(-583.3)}`;
+
   const { isLoggedIn } = useAuthStore();
-  
+
   // Animation value for the car loading (0 to 1)
   const loadingProgress = React.useRef(new Animated.Value(0)).current;
   const scrollViewRef = useRef<ScrollView>(null);
@@ -66,7 +108,7 @@ export const OnboardingFlowScreen: React.FC<Props> = ({ navigation }) => {
       // Root navigator handles this switch
       return;
     }
-    
+
     if (currentStep === 0) {
       // Run the car animation over 2 seconds
       Animated.timing(loadingProgress, {
@@ -86,7 +128,10 @@ export const OnboardingFlowScreen: React.FC<Props> = ({ navigation }) => {
   const handleNext = () => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     if (currentStep >= 1 && currentStep < 3) {
-      scrollViewRef.current?.scrollTo({ x: currentStep * SCREEN_WIDTH, animated: true });
+      scrollViewRef.current?.scrollTo({
+        x: currentStep * SCREEN_WIDTH,
+        animated: true,
+      });
       setCurrentStep(currentStep + 1);
     } else if (currentStep < 4) {
       setCurrentStep(currentStep + 1);
@@ -108,11 +153,31 @@ export const OnboardingFlowScreen: React.FC<Props> = ({ navigation }) => {
   };
 
   const renderTopBar = (color: string) => (
-    <View style={[styles.topBar, { paddingTop: insets.top + 10, justifyContent: 'flex-end', position: 'absolute', top: 0, right: 0, width: '100%', paddingRight: 20 }]}>
-      <TouchableOpacity onPress={handleSkip} style={[styles.skipBtn, { 
-        borderColor: color === '#FFF' ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.1)',
-        backgroundColor: color === '#FFF' ? '#FFFFFF1A' : 'transparent'
-      }]}>
+    <View
+      style={[
+        styles.topBar,
+        {
+          paddingTop: insets.top + 10,
+          justifyContent: 'flex-end',
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          width: '100%',
+          paddingRight: 20,
+        },
+      ]}
+    >
+      <TouchableOpacity
+        onPress={handleSkip}
+        style={[
+          styles.skipBtn,
+          {
+            borderColor:
+              color === '#FFF' ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.1)',
+            backgroundColor: color === '#FFF' ? '#FFFFFF1A' : 'transparent',
+          },
+        ]}
+      >
         <Text style={[styles.skipText, { color }]}>Skip</Text>
       </TouchableOpacity>
     </View>
@@ -126,64 +191,109 @@ export const OnboardingFlowScreen: React.FC<Props> = ({ navigation }) => {
       {currentStep === 0 && (
         <View style={[styles.stepContainer, { backgroundColor: '#F4F4F5' }]}>
           {/* Top Blue Container */}
-          <View style={{ 
-            position: 'absolute', 
-            width: 449.57, 
-            height: 723.44, 
-            left: (SCREEN_WIDTH - 449.57) / 2, 
-            top: -49.44, 
-            zIndex: 1 
-          }}>
-            {/* The diagonal Polygon covers the area ABOVE the tyre track */}
-            <Svg style={{ position: 'absolute', top: 0, left: 0 }} width="100%" height="100%" viewBox="0 0 449.57 723.44">
-              <Polygon points="0,0 449.57,0 449.57,600.2 0,384.2" fill="#2563EB" />
+          <View
+            style={{
+              position: 'absolute',
+              width: '100%',
+              height: '65%',
+              top: 0,
+              zIndex: 1,
+            }}
+          >
+            <Svg
+              style={{ position: 'absolute', top: 0, left: 0 }}
+              width="100%"
+              height="100%"
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+            >
+              <Polygon points="0,0 100,0 100,90 0,60" fill="#2563EB" />
             </Svg>
-
-            {/* Tyre Mark: perfectly aligned with the Polygon's diagonal edge */}
-            <View style={{ position: 'absolute', bottom: 0, left: 0 }}>
-              <CarTyreOnboarding width={449.57} height={344.34} preserveAspectRatio="none" />
+            <View
+              style={{
+                position: 'absolute',
+                bottom: -5,
+                left: 0,
+                width: '100%',
+                height: '50%',
+              }}
+            >
+              <CarTyreOnboarding
+                width="100%"
+                height="100%"
+                preserveAspectRatio="none"
+              />
             </View>
           </View>
-          
+
           {/* Splash Content Logo */}
-          <View style={{ position: 'absolute', top: '22%', width: '100%', alignItems: 'center', zIndex: 3 }}>
+          <View
+            style={{
+              position: 'absolute',
+              top: '25%',
+              width: '100%',
+              alignItems: 'center',
+              zIndex: 3,
+            }}
+          >
             <CarBountyLoading width={220} height={65} />
           </View>
 
           {/* Loading Animation Area */}
-          <View style={{ position: 'absolute', bottom: 60, width: '100%', alignItems: 'center', zIndex: 10 }}>
-             <View style={{ width: '80%', height: 40 }}>
-                {/* Background Track */}
-                <View style={{ position: 'absolute', bottom: 10, width: '100%', height: 4, backgroundColor: '#DBEAFE', borderRadius: 2 }} />
-                
-                {/* Foreground Track (Animated) */}
-                <Animated.View style={{ 
-                  position: 'absolute', 
-                  bottom: 10, 
-                  height: 4, 
-                  backgroundColor: '#2563EB', 
+          <View
+            style={{
+              position: 'absolute',
+              bottom: 60,
+              width: '100%',
+              alignItems: 'center',
+              zIndex: 10,
+            }}
+          >
+            <View style={{ width: '80%', maxWidth: 400, height: 40 }}>
+              {/* Background Track */}
+              <View
+                style={{
+                  position: 'absolute',
+                  bottom: 10,
+                  width: '100%',
+                  height: 4,
+                  backgroundColor: '#DBEAFE',
+                  borderRadius: 2,
+                }}
+              />
+
+              {/* Foreground Track (Animated) */}
+              <Animated.View
+                style={{
+                  position: 'absolute',
+                  bottom: 10,
+                  height: 4,
+                  backgroundColor: '#2563EB',
                   borderRadius: 2,
                   width: loadingProgress.interpolate({
                     inputRange: [0, 1],
-                    outputRange: ['0%', '100%']
-                  })
-                }} />
-                
-                {/* Animated Car */}
-                <Animated.View style={{ 
-                  position: 'absolute', 
-                  bottom: 12, 
-                  left: loadingProgress.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: ['-10%', '90%']
+                    outputRange: ['0%', '100%'],
                   }),
+                }}
+              />
+
+              {/* Animated Car */}
+              <Animated.View
+                style={{
+                  position: 'absolute',
+                  bottom: 12,
                   width: 100,
                   height: 35,
                   alignItems: 'center',
-                }}>
-                   <CarLoading width={110} height={35} />
-                </Animated.View>
-             </View>
+                  left: loadingProgress.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: ['-10%', '90%'],
+                  }),
+                }}
+              >
+                <CarLoading width={110} height={35} />
+              </Animated.View>
+            </View>
           </View>
         </View>
       )}
@@ -202,272 +312,930 @@ export const OnboardingFlowScreen: React.FC<Props> = ({ navigation }) => {
           style={{ flex: 1, backgroundColor: '#F9F9FF' }}
         >
           {/* STEP 1 */}
-          <View style={{ width: SCREEN_WIDTH, height: '100%', backgroundColor: '#F9F9FF', overflow: 'hidden' }}>
-          {/* Top Blue Container (25% larger) */}
-          <View style={{ 
-            position: 'absolute', 
-            width: 449.57, 
-            height: 716.8, 
-            left: (SCREEN_WIDTH - 449.57) / 2, 
-            top: -49.44, 
-            zIndex: 1 
-          }}>
-            {/* The diagonal Polygon covers the area ABOVE the tyre track */}
-            <Svg style={{ position: 'absolute', top: 0, left: 0 }} width="100%" height="100%" viewBox="0 0 449.57 716.8">
-              <Polygon points="0,0 449.57,0 449.57,593.6 0,377.6" fill="#2563EB" />
-            </Svg>
+          <View
+            style={{
+              width: SCREEN_WIDTH,
+              height: '100%',
+              backgroundColor: '#F9F9FF',
+              overflow: 'hidden',
+            }}
+          >
+            {/* Top Blue Container */}
+            <View
+              style={{
+                position: 'absolute',
+                width: '100%',
+                height: '70%',
+                top: 0,
+                zIndex: 1,
+                overflow: 'hidden',
+              }}
+            >
+              <View
+                style={{
+                  position: 'absolute',
+                  bottom: 0,
+                  left: 0,
+                  width: SCREEN_WIDTH,
+                  height: HERO_BASE_HEIGHT * heroScale,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                {/* 
+                  Background Polygon rendered OUTSIDE the transformed view to avoid 
+                  CoreAnimation layout clipping boundaries on iPads.
+                  We mathematically align the viewBox so its internal coordinate space
+                  perfectly matches the transformed 440x718 inner view!
+                */}
+                <Svg
+                  style={{ position: 'absolute', top: 0, left: 0 }}
+                  width={SCREEN_WIDTH}
+                  height={HERO_BASE_HEIGHT * heroScale}
+                >
+                  {/* Raw physical screen coordinates perfectly mirroring the scaled layout, avoiding all native clipping bugs! */}
+                  <Polygon points={bgPoints} fill="#2563EB" />
+                </Svg>
 
-            {/* Tyre Mark: perfectly aligned with the Polygon's diagonal edge */}
-            <View style={{ position: 'absolute', bottom: 0, left: 0 }}>
-              <CarTyreOnboarding width={449.57} height={344.34} preserveAspectRatio="none" />
-            </View>
-          </View>
-          
-          <View style={{ height: '70%', width: '100%', zIndex: 10 }}>
-            {renderTopBar('#FFF')}
-            <View style={{ flex: 1, width: '100%' }}>
-              {/* Car positioned largely off-center to the left */}
-              <View style={{ position: 'absolute', bottom: -80, left: -130, width: 618.26, height: 618.26 }}>
-                <CarOnboard width="100%" height="100%" preserveAspectRatio="xMidYMax meet" />
+                <View
+                  style={{
+                    width: 2000,
+                    height: 2000,
+                    transform: [{ scale: heroScale }],
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <View
+                    style={{
+                      width: HERO_BASE_WIDTH,
+                      height: HERO_BASE_HEIGHT,
+                    }}
+                  >
+                    {/* Tiled Tire Marks to reach screen edges without ruining aspect ratio/angle */}
+                    <View
+                      style={{
+                        position: 'absolute',
+                        bottom: 0,
+                        left: 0,
+                        width: 440,
+                        height: 718,
+                      }}
+                      pointerEvents="none"
+                    >
+                      {/* Left Tile (Overlap: 140px, dx: 300, dy: 144.135) */}
+                      <View
+                        style={{
+                          position: 'absolute',
+                          bottom: 194.775,
+                          left: -300,
+                          width: 440,
+                          height: 337,
+                        }}
+                      >
+                        <CarTyreOnboarding width={440} height={337} />
+                      </View>
+                      {/* Center Tile */}
+                      <View
+                        style={{
+                          position: 'absolute',
+                          bottom: 50.64,
+                          left: 0,
+                          width: 440,
+                          height: 337,
+                        }}
+                      >
+                        <CarTyreOnboarding width={440} height={337} />
+                      </View>
+                      {/* Right Tile */}
+                      <View
+                        style={{
+                          position: 'absolute',
+                          bottom: -93.495,
+                          left: 300,
+                          width: 440,
+                          height: 337,
+                        }}
+                      >
+                        <CarTyreOnboarding width={440} height={337} />
+                      </View>
+                      {/* Far Right Tile (for wide iPads since we shifted left) */}
+                      <View
+                        style={{
+                          position: 'absolute',
+                          bottom: -237.63,
+                          left: 600,
+                          width: 440,
+                          height: 337,
+                        }}
+                      >
+                        <CarTyreOnboarding width={440} height={337} />
+                      </View>
+                    </View>
+
+                    {/* 
+                    Original Car SVG perfectly aligned and rendered natively! 
+                    We apply scaleX: -1 because React Native SVG has a bug where it 
+                    ignores the horizontal flip matrix embedded inside the SVG.
+                    This perfectly mirrors it to come out of the left edge like Figma!
+                  */}
+                    <View
+                      style={{
+                        position: 'absolute',
+                        bottom: 0,
+                        left: -89,
+                        width: 618,
+                        height: 718,
+                      }}
+                      pointerEvents="none"
+                    >
+                      <CarOnboard width={618} height={718} preserveAspectRatio="xMidYMax meet" />
+                    </View>
+                  </View>
+                </View>
               </View>
             </View>
-          </View>
-          
-          <View style={[styles.halfBottom, { height: '30%', backgroundColor: 'transparent', paddingTop: 0, paddingBottom: Math.max(insets.bottom, 10) + 30 }]}>
-            <View>
-              <Text style={[styles.title, { fontSize: 24, lineHeight: 28, marginBottom: 8 }]}>
-                Get the Best{'\n'}Deal on <Text style={styles.textBlue}>Your Next Car</Text>
-              </Text>
-              <Text style={[styles.subtitle, { fontSize: 12, lineHeight: 18 }]}>
-                Buy Your New Car with Complete Confidence from Verified Dealers Near You
-              </Text>
+
+            <View style={{ height: '70%', width: '100%', zIndex: 10 }}>
+              {renderTopBar('#FFF')}
             </View>
-            
-            <View style={styles.bottomNav}>
-              <View style={styles.dots}>
-                <View style={[styles.dot, styles.dotActive]} />
-                <View style={styles.dot} />
-                <View style={styles.dot} />
+
+            <View
+              style={[
+                styles.halfBottom,
+                {
+                  height: '30%',
+                  backgroundColor: 'transparent',
+                  paddingTop: 0,
+                  paddingBottom: Math.max(insets.bottom, 10) + 30,
+                },
+              ]}
+            >
+              <View>
+                <Text
+                  style={[
+                    styles.title,
+                    { fontSize: 24, lineHeight: 28, marginBottom: 8 },
+                  ]}
+                >
+                  Get the Best{'\n'}Deal on{' '}
+                  <Text style={styles.textBlue}>Your Next Car</Text>
+                </Text>
+                <Text
+                  style={[styles.subtitle, { fontSize: 13, lineHeight: 18 }]}
+                >
+                  Buy Your New Car with Complete Confidence from Verified
+                  Dealers Near You
+                </Text>
               </View>
-              <TouchableOpacity style={styles.nextBtn} onPress={handleNext}>
-                <ArrowRight color="#FFF" size={20} strokeWidth={2.5} />
-              </TouchableOpacity>
+
+              <View style={styles.bottomNav}>
+                <View style={styles.dots}>
+                  <View style={[styles.dot, styles.dotActive]} />
+                  <View style={styles.dot} />
+                  <View style={styles.dot} />
+                </View>
+                <TouchableOpacity style={styles.nextBtn} onPress={handleNext}>
+                  <ArrowRight color="#FFF" size={20} strokeWidth={2.5} />
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
           </View>
 
           {/* STEP 2 */}
-          <View style={{ width: SCREEN_WIDTH, height: '100%', backgroundColor: '#F9F9FF', overflow: 'hidden' }}>
-          
-          {/* Top 53% Blue Container */}
-          <View style={{ height: '53%', width: '100%', backgroundColor: '#2563EB', zIndex: 10 }}>
-            {renderTopBar('#FFF')}
-            
-            {/* Badges Container */}
-            <View style={{ position: 'absolute', width: 171, height: 131, top: 114.59, left: 20.17, gap: 10, zIndex: 15 }}>
-              {/* Badge 1 */}
-              <View style={[styles.featureItem, { height: 37, width: 171, paddingHorizontal: 12, borderRadius: 18.5, alignSelf: 'flex-start', overflow: 'hidden' }]}>
-                <Svg style={{ position: 'absolute' }} width="171" height="37">
-                  <Defs>
-                    <LinearGradient id="bgGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <Stop offset="0%" stopColor="rgba(37, 99, 235, 0.8)" />
-                      <Stop offset="100%" stopColor="rgba(21, 56, 133, 0)" />
-                    </LinearGradient>
-                    <LinearGradient id="borderGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <Stop offset="0%" stopColor="rgba(37, 99, 235, 0.4)" />
-                      <Stop offset="100%" stopColor="rgba(21, 56, 133, 0)" />
-                    </LinearGradient>
-                  </Defs>
-                  <Rect x="0.5" y="0.5" width="170" height="36" rx="18" fill="url(#bgGrad1)" stroke="url(#borderGrad1)" strokeWidth="1" />
-                </Svg>
-                <View style={[styles.featureDot, { marginRight: 6 }]} />
-                <Text style={[styles.featureText, { fontFamily: 'Inter', fontSize: 13 }]} numberOfLines={1}>Choose your</Text>
-              </View>
-
-              {/* Badge 2 */}
-              <View style={[styles.featureItem, { height: 37, width: 171, paddingHorizontal: 12, borderRadius: 18.5, alignSelf: 'flex-start', overflow: 'hidden' }]}>
-                <Svg style={{ position: 'absolute' }} width="171" height="37">
-                  <Defs>
-                    <LinearGradient id="bgGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <Stop offset="0%" stopColor="rgba(37, 99, 235, 0.8)" />
-                      <Stop offset="100%" stopColor="rgba(21, 56, 133, 0)" />
-                    </LinearGradient>
-                    <LinearGradient id="borderGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <Stop offset="0%" stopColor="rgba(37, 99, 235, 0.4)" />
-                      <Stop offset="100%" stopColor="rgba(21, 56, 133, 0)" />
-                    </LinearGradient>
-                  </Defs>
-                  <Rect x="0.5" y="0.5" width="170" height="36" rx="18" fill="url(#bgGrad2)" stroke="url(#borderGrad2)" strokeWidth="1" />
-                </Svg>
-                <View style={[styles.featureDot, { marginRight: 6 }]} />
-                <Text style={[styles.featureText, { fontFamily: 'Inter', fontSize: 13 }]} numberOfLines={1}>Dealers Bid Live</Text>
-              </View>
-
-              {/* Badge 3 */}
-              <View style={[styles.featureItem, { height: 37, width: 171, paddingHorizontal: 12, borderRadius: 18.5, alignSelf: 'flex-start', overflow: 'hidden' }]}>
-                <Svg style={{ position: 'absolute' }} width="171" height="37">
-                  <Defs>
-                    <LinearGradient id="bgGrad3" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <Stop offset="0%" stopColor="rgba(37, 99, 235, 0.8)" />
-                      <Stop offset="100%" stopColor="rgba(21, 56, 133, 0)" />
-                    </LinearGradient>
-                    <LinearGradient id="borderGrad3" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <Stop offset="0%" stopColor="rgba(37, 99, 235, 0.4)" />
-                      <Stop offset="100%" stopColor="rgba(21, 56, 133, 0)" />
-                    </LinearGradient>
-                  </Defs>
-                  <Rect x="0.5" y="0.5" width="170" height="36" rx="18" fill="url(#bgGrad3)" stroke="url(#borderGrad3)" strokeWidth="1" />
-                </Svg>
-                <View style={[styles.featureDot, { marginRight: 6 }]} />
-                <Text style={[styles.featureText, { fontFamily: 'Inter', fontSize: 13 }]} numberOfLines={1}>You Get the Best Price</Text>
-              </View>
-            </View>
-            
-            {/* Salesman Image with exact Figma metrics */}
-            <View style={{ 
-              position: 'absolute', top: 133.81, left: 14, width: 365, height: 342, zIndex: 5,
-              shadowColor: '#000', shadowOffset: { width: -15, height: -15 }, shadowOpacity: 0.5, shadowRadius: 20, elevation: 15
-            }}>
-               <SalesmanOnboard width="100%" height="100%" preserveAspectRatio="xMaxYMax meet" />
-            </View>
-          </View>
-
-          {/* Horizontal Tyre Track Border using TyreOnboard2 (Below blue container) */}
-          <View style={{ width: SCREEN_WIDTH, height: 80, zIndex: 10 }}>
-             <TyreOnboard2 width="100%" height="100%" preserveAspectRatio="xMidYMid slice" />
-          </View>
-          
-          {/* Bottom Text Container */}
-          <View style={[styles.halfBottom, { flex: 1, height: 'auto', backgroundColor: 'transparent', paddingTop: 20, paddingBottom: Math.max(insets.bottom, 10) + 30 }]}>
-            <View>
-              <Text style={[styles.title, { fontSize: 24, lineHeight: 28, marginBottom: 8, fontFamily: 'Outfit-Bold' }]}>
-                Dealers{'\n'}Compete. <Text style={[styles.textBlue, { fontFamily: 'Outfit-Bold' }]}>You Save.</Text>
-              </Text>
-              <Text style={[styles.subtitle, { fontSize: 13, lineHeight: 18, fontFamily: 'Outfit-Regular' }]}>
-                No showroom visits, no endless negotiations — just the best car deal, made simple for you.
-              </Text>
-            </View>
-            
-            <View style={styles.bottomNav}>
-              <View style={styles.dots}>
-                <View style={styles.dot} />
-                <View style={[styles.dot, styles.dotActive]} />
-                <View style={styles.dot} />
-              </View>
-              <TouchableOpacity style={styles.nextBtn} onPress={handleNext}>
-                <ArrowRight color="#FFF" size={20} strokeWidth={2.5} />
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-
-          {/* STEP 3 */}
-          <View style={{ width: SCREEN_WIDTH, height: '100%', backgroundColor: '#F9F9FF', overflow: 'hidden' }}>
-            {/* Top Blue Container */}
-            <View style={{ height: '53%', width: '100%', backgroundColor: '#2563EB', zIndex: 10, alignItems: 'center' }}>
+          <View
+            style={{
+              width: SCREEN_WIDTH,
+              height: '100%',
+              backgroundColor: '#F9F9FF',
+              overflow: 'hidden',
+            }}
+          >
+            {/* Top 62% Blue Container */}
+            <View
+              style={{
+                height: '62%',
+                width: '100%',
+                backgroundColor: '#2563EB',
+                zIndex: 10,
+                overflow: 'hidden',
+              }}
+            >
               {renderTopBar('#FFF')}
-              
-              <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, overflow: 'hidden', alignItems: 'center' }}>
-                <View style={styles.arcGlow} />
-              </View>
-              
-              <Text style={{ color: '#FFF', fontSize: 44, fontFamily: 'Outfit-Bold', marginTop: 190, zIndex: 2 }}>BEST DEALS</Text>
-              
-              {/* Pills Wrapper */}
-              <View style={{ alignItems: 'center', marginTop: 15, zIndex: 2 }}>
-                <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 10 }}>
-                  <View style={[styles.pill, { backgroundColor: 'rgba(255,255,255,0.15)', borderWidth: 0, paddingHorizontal: 14, height: 32 }]}>
-                    <Check color="#FF8A00" size={14} strokeWidth={4} />
-                    <Text style={[styles.pillText, { color: '#FFF', fontSize: 13, marginLeft: 6 }]}>Verified Dealers</Text>
+
+              <View style={{ flex: 1, flexDirection: 'row' }}>
+                {/* Badges Container */}
+                <View
+                  style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    paddingBottom: '15%',
+                    paddingTop: '10%',
+                  }}
+                >
+                  {/* Badge 1 */}
+                  <View
+                    style={[
+                      styles.featureItem,
+                      {
+                        height: 37,
+                        paddingLeft: 12,
+                        paddingRight: 40,
+                        borderRadius: 18.5,
+                        alignSelf: 'flex-start',
+                        overflow: 'hidden',
+                        marginBottom: 16,
+                      },
+                    ]}
+                  >
+                    <Svg
+                      style={{ position: 'absolute' }}
+                      width="100%"
+                      height="100%"
+                    >
+                      <Defs>
+                        <LinearGradient
+                          id="bgGrad1"
+                          x1="0"
+                          y1="0"
+                          x2="171"
+                          y2="0"
+                          gradientUnits="userSpaceOnUse"
+                        >
+                          <Stop
+                            offset="0%"
+                            stopColor="rgba(37, 99, 235, 0.8)"
+                          />
+                          <Stop
+                            offset="100%"
+                            stopColor="rgba(21, 56, 133, 0)"
+                          />
+                        </LinearGradient>
+                        <LinearGradient
+                          id="borderGrad1"
+                          x1="0"
+                          y1="0"
+                          x2="171"
+                          y2="0"
+                          gradientUnits="userSpaceOnUse"
+                        >
+                          <Stop
+                            offset="0%"
+                            stopColor="rgba(37, 99, 235, 0.4)"
+                          />
+                          <Stop
+                            offset="100%"
+                            stopColor="rgba(21, 56, 133, 0)"
+                          />
+                        </LinearGradient>
+                      </Defs>
+                      <Rect
+                        x="0"
+                        y="0"
+                        width="100%"
+                        height="100%"
+                        rx="18"
+                        fill="url(#bgGrad1)"
+                        stroke="url(#borderGrad1)"
+                        strokeWidth="1"
+                      />
+                    </Svg>
+                    <View style={[styles.featureDot, { marginRight: 6 }]} />
+                    <Text
+                      style={[
+                        styles.featureText,
+                        { fontFamily: 'Inter', fontSize: 13 },
+                      ]}
+                      numberOfLines={1}
+                    >
+                      Choose your
+                    </Text>
                   </View>
-                  <View style={[styles.pill, { backgroundColor: 'rgba(255,255,255,0.15)', borderWidth: 0, paddingHorizontal: 14, height: 32 }]}>
-                    <Check color="#FF8A00" size={14} strokeWidth={4} />
-                    <Text style={[styles.pillText, { color: '#FFF', fontSize: 13, marginLeft: 6 }]}>Secure Payments</Text>
+
+                  {/* Badge 2 */}
+                  <View
+                    style={[
+                      styles.featureItem,
+                      {
+                        height: 37,
+                        paddingLeft: 12,
+                        paddingRight: 40,
+                        borderRadius: 18.5,
+                        alignSelf: 'flex-start',
+                        overflow: 'hidden',
+                        marginBottom: 16,
+                      },
+                    ]}
+                  >
+                    <Svg
+                      style={{ position: 'absolute' }}
+                      width="100%"
+                      height="100%"
+                    >
+                      <Defs>
+                        <LinearGradient
+                          id="bgGrad2"
+                          x1="0"
+                          y1="0"
+                          x2="171"
+                          y2="0"
+                          gradientUnits="userSpaceOnUse"
+                        >
+                          <Stop
+                            offset="0%"
+                            stopColor="rgba(37, 99, 235, 0.8)"
+                          />
+                          <Stop
+                            offset="100%"
+                            stopColor="rgba(21, 56, 133, 0)"
+                          />
+                        </LinearGradient>
+                        <LinearGradient
+                          id="borderGrad2"
+                          x1="0"
+                          y1="0"
+                          x2="171"
+                          y2="0"
+                          gradientUnits="userSpaceOnUse"
+                        >
+                          <Stop
+                            offset="0%"
+                            stopColor="rgba(37, 99, 235, 0.4)"
+                          />
+                          <Stop
+                            offset="100%"
+                            stopColor="rgba(21, 56, 133, 0)"
+                          />
+                        </LinearGradient>
+                      </Defs>
+                      <Rect
+                        x="0"
+                        y="0"
+                        width="100%"
+                        height="100%"
+                        rx="18"
+                        fill="url(#bgGrad2)"
+                        stroke="url(#borderGrad2)"
+                        strokeWidth="1"
+                      />
+                    </Svg>
+                    <View style={[styles.featureDot, { marginRight: 6 }]} />
+                    <Text
+                      style={[
+                        styles.featureText,
+                        { fontFamily: 'Inter', fontSize: 13 },
+                      ]}
+                      numberOfLines={1}
+                    >
+                      Dealers Bid Live
+                    </Text>
+                  </View>
+
+                  {/* Badge 3 */}
+                  <View
+                    style={[
+                      styles.featureItem,
+                      {
+                        height: 37,
+                        paddingLeft: 12,
+                        paddingRight: 40,
+                        borderRadius: 18.5,
+                        alignSelf: 'flex-start',
+                        overflow: 'hidden',
+                      },
+                    ]}
+                  >
+                    <Svg
+                      style={{ position: 'absolute' }}
+                      width="100%"
+                      height="100%"
+                    >
+                      <Defs>
+                        <LinearGradient
+                          id="bgGrad3"
+                          x1="0"
+                          y1="0"
+                          x2="171"
+                          y2="0"
+                          gradientUnits="userSpaceOnUse"
+                        >
+                          <Stop
+                            offset="0%"
+                            stopColor="rgba(37, 99, 235, 0.8)"
+                          />
+                          <Stop
+                            offset="100%"
+                            stopColor="rgba(21, 56, 133, 0)"
+                          />
+                        </LinearGradient>
+                        <LinearGradient
+                          id="borderGrad3"
+                          x1="0"
+                          y1="0"
+                          x2="171"
+                          y2="0"
+                          gradientUnits="userSpaceOnUse"
+                        >
+                          <Stop
+                            offset="0%"
+                            stopColor="rgba(37, 99, 235, 0.4)"
+                          />
+                          <Stop
+                            offset="100%"
+                            stopColor="rgba(21, 56, 133, 0)"
+                          />
+                        </LinearGradient>
+                      </Defs>
+                      <Rect
+                        x="0"
+                        y="0"
+                        width="100%"
+                        height="100%"
+                        rx="18"
+                        fill="url(#bgGrad3)"
+                        stroke="url(#borderGrad3)"
+                        strokeWidth="1"
+                      />
+                    </Svg>
+                    <View style={[styles.featureDot, { marginRight: 6 }]} />
+                    <Text
+                      style={[
+                        styles.featureText,
+                        { fontFamily: 'Inter', fontSize: 13 },
+                      ]}
+                      numberOfLines={1}
+                    >
+                      You Get the Best Price
+                    </Text>
                   </View>
                 </View>
-                <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 10 }}>
-                  <View style={[styles.pill, { backgroundColor: 'rgba(255,255,255,0.15)', borderWidth: 0, paddingHorizontal: 14, height: 32 }]}>
-                    <Check color="#FF8A00" size={14} strokeWidth={4} />
-                    <Text style={[styles.pillText, { color: '#FFF', fontSize: 13, marginLeft: 6 }]}>Transparent Pricing</Text>
+
+                {/* Salesman Image */}
+                <View
+                  style={{
+                    position: 'absolute',
+                    top: '25%',
+                    left: 30 * (SCREEN_WIDTH / 390),
+                    width: 365 * (SCREEN_WIDTH / 390),
+                    height: 342 * (SCREEN_WIDTH / 390),
+                    zIndex: 5,
+                    shadowColor: '#000',
+                    shadowOffset: { width: -15, height: -15 },
+                    shadowOpacity: 0.5,
+                    shadowRadius: 20,
+                    elevation: 15,
+                  }}
+                >
+                  <SalesmanOnboard
+                    width="100%"
+                    height="100%"
+                    preserveAspectRatio="xMaxYMax meet"
+                  />
+                </View>
+              </View>
+            </View>
+
+            {/* Horizontal Tyre Track Border */}
+            <View style={{ width: SCREEN_WIDTH, height: 80, zIndex: 10 }}>
+              <TyreOnboard2
+                width="100%"
+                height="100%"
+                preserveAspectRatio="xMidYMid slice"
+              />
+            </View>
+
+            {/* Bottom Text Container */}
+            <View
+              style={[
+                styles.halfBottom,
+                {
+                  flex: 1,
+                  height: 'auto',
+                  backgroundColor: 'transparent',
+                  paddingTop: 20,
+                  paddingBottom: Math.max(insets.bottom, 10) + 30,
+                },
+              ]}
+            >
+              <View>
+                <Text
+                  style={[
+                    styles.title,
+                    {
+                      fontSize: 24,
+                      lineHeight: 28,
+                      marginBottom: 8,
+                      fontFamily: 'Outfit-Bold',
+                    },
+                  ]}
+                >
+                  Dealers{'\n'}Compete.{' '}
+                  <Text
+                    style={[styles.textBlue, { fontFamily: 'Outfit-Bold' }]}
+                  >
+                    You Save.
+                  </Text>
+                </Text>
+                <Text
+                  style={[
+                    styles.subtitle,
+                    {
+                      fontSize: 13,
+                      lineHeight: 18,
+                      fontFamily: 'Outfit-Regular',
+                    },
+                  ]}
+                >
+                  No showroom visits, no endless negotiations — just the best
+                  car deal, made simple for you.
+                </Text>
+              </View>
+
+              <View style={styles.bottomNav}>
+                <View style={styles.dots}>
+                  <View style={styles.dot} />
+                  <View style={[styles.dot, styles.dotActive]} />
+                  <View style={styles.dot} />
+                </View>
+                <TouchableOpacity style={styles.nextBtn} onPress={handleNext}>
+                  <ArrowRight color="#FFF" size={20} strokeWidth={2.5} />
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+
+          {/* STEP 3 */}
+          <View
+            style={{
+              width: SCREEN_WIDTH,
+              height: '100%',
+              backgroundColor: '#F9F9FF',
+              overflow: 'hidden',
+            }}
+          >
+            {/* Top Blue Container */}
+            <View
+              style={{
+                height: '62%',
+                width: '100%',
+                backgroundColor: '#2563EB',
+                zIndex: 10,
+                alignItems: 'center',
+                justifyContent: 'flex-end',
+              }}
+            >
+              {renderTopBar('#FFF')}
+
+              {/* Arch Glow perfectly anchored to bottom */}
+              <View
+                style={{
+                  position: 'absolute',
+                  bottom: 0,
+                  width: '85%',
+                  maxWidth: 400,
+                  height: '75%',
+                  borderTopLeftRadius: 200,
+                  borderTopRightRadius: 200,
+                  backgroundColor: 'rgba(96, 165, 250, 0.2)',
+                  borderWidth: 1,
+                  borderColor: 'rgba(255, 255, 255, 0.2)',
+                  zIndex: 1,
+                }}
+              />
+
+              <View
+                style={{
+                  zIndex: 2,
+                  alignItems: 'center',
+                  paddingBottom: '20%',
+                }}
+              >
+                <Text
+                  style={{
+                    color: '#FFF',
+                    fontSize: 44,
+                    fontFamily: 'Outfit-Bold',
+                  }}
+                >
+                  BEST DEALS
+                </Text>
+
+                {/* Pills Wrapper */}
+                <View style={{ alignItems: 'center', marginTop: 15 }}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'center',
+                      gap: 10,
+                    }}
+                  >
+                    <View
+                      style={[
+                        styles.pill,
+                        {
+                          backgroundColor: 'rgba(255,255,255,0.15)',
+                          borderWidth: 0,
+                          paddingHorizontal: 14,
+                          height: 32,
+                        },
+                      ]}
+                    >
+                      <Check color="#FF8A00" size={14} strokeWidth={4} />
+                      <Text
+                        style={[
+                          styles.pillText,
+                          { color: '#FFF', fontSize: 13, marginLeft: 6 },
+                        ]}
+                      >
+                        Verified Dealers
+                      </Text>
+                    </View>
+                    <View
+                      style={[
+                        styles.pill,
+                        {
+                          backgroundColor: 'rgba(255,255,255,0.15)',
+                          borderWidth: 0,
+                          paddingHorizontal: 14,
+                          height: 32,
+                        },
+                      ]}
+                    >
+                      <Check color="#FF8A00" size={14} strokeWidth={4} />
+                      <Text
+                        style={[
+                          styles.pillText,
+                          { color: '#FFF', fontSize: 13, marginLeft: 6 },
+                        ]}
+                      >
+                        Secure Payments
+                      </Text>
+                    </View>
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'center',
+                      marginTop: 10,
+                    }}
+                  >
+                    <View
+                      style={[
+                        styles.pill,
+                        {
+                          backgroundColor: 'rgba(255,255,255,0.15)',
+                          borderWidth: 0,
+                          paddingHorizontal: 14,
+                          height: 32,
+                        },
+                      ]}
+                    >
+                      <Check color="#FF8A00" size={14} strokeWidth={4} />
+                      <Text
+                        style={[
+                          styles.pillText,
+                          { color: '#FFF', fontSize: 13, marginLeft: 6 },
+                        ]}
+                      >
+                        Transparent Pricing
+                      </Text>
+                    </View>
                   </View>
                 </View>
               </View>
 
               {/* Cars at the bottom edge */}
-              <View style={{ position: 'absolute', bottom: '-20%', left: '-25%', width: '130%', height: 160, zIndex: 5, transform: [{ scale: 0.93 }] }}>
-                 <CarOnboard3 width="100%" height="100%" preserveAspectRatio="xMidYMax meet" />
+              <View
+                style={{
+                  position: 'absolute',
+                  bottom: '-20%',
+                  left: '-25%',
+                  width: '130%',
+                  height: 160 * (SCREEN_WIDTH / 390),
+                  zIndex: 5,
+                  transform: [{ scale: 0.93 }],
+                }}
+              >
+                <CarOnboard3
+                  width="100%"
+                  height="100%"
+                  preserveAspectRatio="xMidYMax meet"
+                />
               </View>
             </View>
-            
+
             {/* Tyre Track */}
-            <View style={{ width: SCREEN_WIDTH, height: 80, zIndex: 9, marginTop: -5 }}>
-               <TyreMarkOnboard3 width="100%" height="100%" preserveAspectRatio="none" />
+            <View
+              style={{ width: '100%', height: 80, zIndex: 1, marginTop: -5 }}
+            >
+              <TyreMarkOnboard3
+                width="100%"
+                height="100%"
+                preserveAspectRatio="none"
+              />
             </View>
-            
+
             {/* Bottom Text Area */}
-            <View style={[styles.halfBottom, { flex: 1, height: 'auto', backgroundColor: 'transparent', paddingTop: 10, paddingBottom: Math.max(insets.bottom, 20) + 30 }]}>
+            <View
+              style={[
+                styles.halfBottom,
+                {
+                  flex: 1,
+                  height: 'auto',
+                  backgroundColor: 'transparent',
+                  paddingTop: 10,
+                  paddingBottom: Math.max(insets.bottom, 20) + 30,
+                },
+              ]}
+            >
               <View style={{ paddingHorizontal: 5 }}>
-                <Text style={[styles.title, { textAlign: 'left', fontSize: 26, lineHeight: 32, fontFamily: 'Outfit-Bold' }]}>
-                  Save More{'\n'}on Every Car <Text style={[styles.textBlue, { fontFamily: 'Outfit-Bold' }]}>Today</Text>
+                <Text
+                  style={[
+                    styles.title,
+                    {
+                      textAlign: 'left',
+                      fontSize: 26,
+                      lineHeight: 32,
+                      fontFamily: 'Outfit-Bold',
+                    },
+                  ]}
+                >
+                  Save More{'\n'}on Every Car{' '}
+                  <Text
+                    style={[styles.textBlue, { fontFamily: 'Outfit-Bold' }]}
+                  >
+                    Today
+                  </Text>
                 </Text>
-                <Text style={[styles.subtitle, { textAlign: 'left', marginTop: 10, fontSize: 14, lineHeight: 20, fontFamily: 'Outfit-Regular', color: '#6B7280' }]}>
-                  No showroom visits, no endless negotiations — just the best car deal, made simple for you.
+                <Text
+                  style={[
+                    styles.subtitle,
+                    {
+                      textAlign: 'left',
+                      marginTop: 10,
+                      fontSize: 14,
+                      lineHeight: 20,
+                      fontFamily: 'Outfit-Regular',
+                      color: '#6B7280',
+                    },
+                  ]}
+                >
+                  No showroom visits, no endless negotiations — just the best
+                  car deal, made simple for you.
                 </Text>
               </View>
-              
-              <View style={[styles.bottomNav, { marginTop: 20, alignItems: 'center' }]}>
+
+              <View
+                style={[
+                  styles.bottomNav,
+                  { marginTop: 20, alignItems: 'center' },
+                ]}
+              >
                 <View style={styles.dots}>
                   <View style={styles.dot} />
                   <View style={styles.dot} />
                   <View style={[styles.dot, styles.dotActive, { width: 32 }]} />
                 </View>
-                <TouchableOpacity style={[styles.getStartedBtn, { paddingHorizontal: 20, height: 44, borderRadius: 22 }]} onPress={handleNext}>
-                  <Text style={[styles.getStartedText, { fontSize: 15 }]}>Get Started</Text>
-                  <ArrowRight color="#FFF" size={18} strokeWidth={2.5} style={{ marginLeft: 8 }} />
+                <TouchableOpacity
+                  style={[
+                    styles.getStartedBtn,
+                    { paddingHorizontal: 20, height: 44, borderRadius: 22 },
+                  ]}
+                  onPress={handleNext}
+                >
+                  <Text style={[styles.getStartedText, { fontSize: 15 }]}>
+                    Get Started
+                  </Text>
+                  <ArrowRight
+                    color="#FFF"
+                    size={18}
+                    strokeWidth={2.5}
+                    style={{ marginLeft: 8 }}
+                  />
                 </TouchableOpacity>
               </View>
             </View>
           </View>
-      </ScrollView>
+        </ScrollView>
       )}
 
       {/* =======================
           STEP 4: LOGIN / OTP
           ======================= */}
       {currentStep === 4 && (
-        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={[styles.stepContainer, { backgroundColor: '#F8FAFC' }]}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={[styles.stepContainer, { backgroundColor: '#F8FAFC' }]}
+        >
           <ScrollView contentContainerStyle={{ flexGrow: 1 }} bounces={false}>
             {/* Top Background Pattern */}
-            <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 350, zIndex: 0, overflow: 'hidden', alignItems: 'center' }}>
+            <View
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                height: 350,
+                zIndex: 0,
+                overflow: 'hidden',
+                alignItems: 'center',
+              }}
+            >
               {/* Circle container: shifted left to cover white space */}
-              <View style={{ position: 'absolute', top: -85, left: -140, width: SCREEN_WIDTH * 1.5, height: 350, alignItems: 'center' }}>
-                <Svg width="100%" height="100%" style={{ position: 'absolute' }}>
+              <View
+                style={{
+                  position: 'absolute',
+                  top: -85 - SCREEN_HEIGHT * 0.015,
+                  left: -140 - SCREEN_WIDTH * 0.14,
+                  width: SCREEN_WIDTH * 1.5,
+                  height: 350,
+                  alignItems: 'center',
+                }}
+              >
+                <Svg
+                  width="100%"
+                  height="100%"
+                  style={{ position: 'absolute' }}
+                >
                   <Defs>
-                    <LinearGradient id="loginGrad" x1="0" y1="0" x2="1" y2="0.5">
-                      <Stop offset="0.2336" stopColor="#2563EB" stopOpacity="0.2" />
-                      <Stop offset="0.8904" stopColor="#2563EB" stopOpacity="0.1" />
+                    <LinearGradient
+                      id="loginGrad"
+                      x1="0"
+                      y1="0"
+                      x2="1"
+                      y2="0.5"
+                    >
+                      <Stop
+                        offset="0.2336"
+                        stopColor="#2563EB"
+                        stopOpacity="0.2"
+                      />
+                      <Stop
+                        offset="0.8904"
+                        stopColor="#2563EB"
+                        stopOpacity="0.1"
+                      />
                     </LinearGradient>
                   </Defs>
-                  <Ellipse cx={(SCREEN_WIDTH * 1.5) / 2} cy={160} rx={(SCREEN_WIDTH * 1.5) / 2} ry={160} fill="url(#loginGrad)" />
+                  <Ellipse
+                    cx={(SCREEN_WIDTH * 1.5) / 2}
+                    cy={160}
+                    rx={(SCREEN_WIDTH * 1.5) / 2}
+                    ry={160}
+                    fill="url(#loginGrad)"
+                  />
                 </Svg>
               </View>
 
               {/* Tyre mark container: strictly centered on the screen */}
-              <View style={{ position: 'absolute', top: -100, left: 0, width: SCREEN_WIDTH, height: 350, alignItems: 'center' }}>
-                <View style={{ position: 'absolute', width: '100%', height: '40%', bottom: -2 }}>
-                  <LoginTyreMark width="100%" height="100%" preserveAspectRatio="none" />
+              <View
+                style={{
+                  position: 'absolute',
+                  top: -100,
+                  left: 0,
+                  width: SCREEN_WIDTH,
+                  height: 350,
+                  alignItems: 'center',
+                }}
+              >
+                <View
+                  style={{
+                    position: 'absolute',
+                    width: '100%',
+                    height: '55%',
+                    bottom: -2,
+                  }}
+                >
+                  <LoginTyreMark
+                    width="100%"
+                    height="100%"
+                    preserveAspectRatio="none"
+                  />
                 </View>
               </View>
             </View>
-            
-            <View style={{ marginTop: 90, marginLeft: 30, zIndex: 1, alignSelf: 'flex-start' }}>
+
+            <View
+              style={{
+                marginTop: 80,
+                marginLeft: 30,
+                zIndex: 1,
+                alignSelf: 'flex-start',
+              }}
+            >
               <BlackLogo width={180} height={50} />
             </View>
-            
+
             <View style={[styles.loginBody, { marginTop: 150, zIndex: 1 }]}>
-              <Text style={styles.loginTitle}>Welcome to <Text style={styles.textBlue}>CarBounty</Text></Text>
-              <Text style={styles.loginSubtitle}>Enter your mobile number to continue and access the best car deals near you.</Text>
-              
+              <Text style={styles.loginTitle}>
+                Welcome to <Text style={styles.textBlue}>CarBounty</Text>
+              </Text>
+              <Text style={styles.loginSubtitle}>
+                Enter your mobile number to continue and access the best car
+                deals near you.
+              </Text>
+
               <View style={styles.inputSection}>
                 <Text style={styles.inputLabel}>Mobile Number</Text>
                 <View style={styles.inputRow}>
@@ -475,7 +1243,7 @@ export const OnboardingFlowScreen: React.FC<Props> = ({ navigation }) => {
                     <Text>🇮🇳</Text>
                     <ChevronDown color="#94A3B8" size={16} />
                   </View>
-                  <TextInput 
+                  <TextInput
                     style={styles.textInput}
                     placeholder="+91 000 000 0000"
                     placeholderTextColor="#94A3B8"
@@ -485,18 +1253,36 @@ export const OnboardingFlowScreen: React.FC<Props> = ({ navigation }) => {
                   />
                 </View>
               </View>
-              
-              <TouchableOpacity style={styles.whatsappToggle} onPress={() => setWhatsappUpdate(!whatsappUpdate)}>
-                <View style={[styles.checkbox, whatsappUpdate && styles.checkboxActive]}>
-                  {whatsappUpdate && <Check color="#FFF" size={12} strokeWidth={3} />}
+
+              <TouchableOpacity
+                style={styles.whatsappToggle}
+                onPress={() => setWhatsappUpdate(!whatsappUpdate)}
+              >
+                <View
+                  style={[
+                    styles.checkbox,
+                    whatsappUpdate && styles.checkboxActive,
+                  ]}
+                >
+                  {whatsappUpdate && (
+                    <Check color="#FFF" size={12} strokeWidth={3} />
+                  )}
                 </View>
-                <Text style={styles.whatsappText}>Get Updates On <Text style={{ color: '#2563EB', fontFamily: 'Outfit-Bold' }}>WhatsApp</Text></Text>
+                <Text style={styles.whatsappText}>
+                  Get Updates On{' '}
+                  <Text style={{ color: '#2563EB', fontFamily: 'Outfit-Bold' }}>
+                    WhatsApp
+                  </Text>
+                </Text>
               </TouchableOpacity>
-              
-              <TouchableOpacity style={styles.submitBtn} onPress={() => navigation.navigate('OTP')}>
+
+              <TouchableOpacity
+                style={styles.submitBtn}
+                onPress={() => navigation.navigate('OTP')}
+              >
                 <Text style={styles.submitText}>Get OTP</Text>
               </TouchableOpacity>
-              
+
               <Text style={styles.termsText}>
                 By continuing, you agree to our Terms of Service &{'\n'}
                 <Text style={styles.textBlue}>Privacy Policy</Text>
@@ -675,7 +1461,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 4,
     left: '50%',
-    transform: [{ translateX: -12 }]
+    transform: [{ translateX: -12 }],
   },
   loadingFill: {
     height: '100%',

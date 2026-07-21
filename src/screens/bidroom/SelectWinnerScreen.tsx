@@ -12,7 +12,7 @@ import { Divider } from '../../components/common/Divider';
 import { PriceText } from '../../components/common/PriceText';
 import { useBidRoomStore } from '../../store/bidRoomStore';
 import { mockOrders } from '../../mocks/mockOrders';
-
+  
 type Props = NativeStackScreenProps<MainStackParamList, 'SelectWinner'>;
 
 export const SelectWinnerScreen: React.FC<Props> = ({ route, navigation }) => {

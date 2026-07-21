@@ -14,8 +14,8 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { MainStackParamList } from '../../navigation/types';
 import { ScreenWrapper } from '../../components/layout/ScreenWrapper';
 import Svg, { Path, Rect, Circle, Defs, LinearGradient, Stop } from 'react-native-svg';
-import Group94Svg from '../../../Group 94.svg';
-import CarBountyLightSvg from '../../../carbountylight.svg';
+import Group94Svg from '../../assets/Group 94.svg';
+import CarBountyLightSvg from '../../assets/carbountylight.svg';
 
 const { width: screenWidth } = Dimensions.get('window');
 

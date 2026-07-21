@@ -211,7 +211,7 @@ export const BidRoomScreen: React.FC<Props> = ({ route, navigation }) => {
 
         <LiveBidCard
           rank={4}
-          dealerName="Dealer # 3" // As per screenshot
+          dealerName="Dealer # 3" 
           rating={4.7}
           dealsCount={31}
           price={1344000}

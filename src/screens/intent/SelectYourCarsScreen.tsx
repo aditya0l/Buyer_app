@@ -438,7 +438,7 @@ export const SelectYourCarsScreen: React.FC = () => {
         {/* Grey Info Helper Card */}
         <View style={styles.infoHelperCard}>
           <Image
-            source={require('../../../Group.png')}
+            source={require('../../assets/Group.png')}
             style={styles.infoHelperIcon}
             resizeMode="contain"
           />

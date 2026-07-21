@@ -21,13 +21,13 @@ import { useNotificationStore } from '../../store/notificationStore';
 import Svg, { Path, Rect, G, Defs, ClipPath, LinearGradient, Stop, Polygon } from 'react-native-svg';
 import { formatPrice } from '../../utils/formatPrice';
 import { TimerCountdown } from '../../components/common/TimerCountdown';
-import WaveSvg from '../../../wave.svg';
-import Group94Svg from '../../../Group 94.svg';
-import Rectangle1051Svg from '../../../Rectangle 1051.svg';
-import PetrolSvg from '../../../petrol.svg';
-import ElectricSvg from '../../../electric.svg';
-import DieselSvg from '../../../diesel.svg';
-import HybridSvg from '../../../hybrid.svg';
+import WaveSvg from '../../assets/wave.svg';
+import Group94Svg from '../../assets/Group 94.svg';
+import Rectangle1051Svg from '../../assets/Rectangle 1051.svg';
+import PetrolSvg from '../../assets/petrol.svg';
+import ElectricSvg from '../../assets/electric.svg';
+import DieselSvg from '../../assets/diesel.svg';
+import HybridSvg from '../../assets/hybrid.svg';
 import {
   mockLiveBanners,
   mockFuelTypes,
@@ -202,7 +202,7 @@ export const HomeScreen: React.FC = () => {
                 <View style={[styles.heroCard, { backgroundColor: index === 0 ? '#D8E3FB' : '#2563EB', width: cardWidth, height: index === 0 ? scaled(264) : scaled(220), borderRadius: scaled(20), alignSelf: 'center' }]}>
                   {index === 0 ? (
                     <Image
-                      source={require('../../../image_57.png')}
+                      source={require('../../assets/image_57.png')}
                       style={[styles.firstBannerImage, { width: scaled(630), height: scaled(337), bottom: scaled(-50), right: scaled(-200) }]}
                       resizeMode="contain"
                     />

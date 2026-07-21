@@ -1,6 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator, BottomTabBarProps } from '@react-navigation/bottom-tabs';
-import { Text, StyleSheet, View, TouchableOpacity, Dimensions } from 'react-native';
+import { Text, StyleSheet, View, TouchableOpacity, useWindowDimensions } from 'react-native';
 import { BottomTabParamList, MainStackParamList } from './types';
 import { HomeScreen } from '../screens/home/HomeScreen';
 import { BrowseScreen } from '../screens/browse/BrowseScreen';
@@ -11,7 +11,6 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 const Tab = createBottomTabNavigator<BottomTabParamList>();
-const { width: screenWidth } = Dimensions.get('window');
 
 type NavigationProp = NativeStackNavigationProp<MainStackParamList>;
 
@@ -64,13 +63,17 @@ const ProfileIcon: React.FC<{ color: string }> = ({ color }) => (
 
 // High-Fidelity Custom Curved Tab Bar Component matching Figma Group 92.svg
 export const CustomTabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, navigation }) => {
+  const { width: screenWidth } = useWindowDimensions();
+  const offset = (screenWidth - 440) / 2;
+  const dPath = `M${screenWidth} 152.597H0V48C0 36.9543 8.95431 28 20 28H${174.14 + offset}C${178.456 + offset} 28 ${181.639 + offset} 32.0217 ${181.639 + offset} 36.3379C${181.639 + offset} 57.6904 ${198.948 + offset} 78.0008 ${220.301 + offset} 78.001C${241.653 + offset} 78.001 ${258.964 + offset} 57.6905 ${258.964 + offset} 36.3379C${258.964 + offset} 32.0217 ${262.147 + offset} 28 ${266.463 + offset} 28H${screenWidth - 20}C${screenWidth - 8.954} 28 ${screenWidth} 36.9543 ${screenWidth} 48Z`;
+
   return (
     <View style={styles.tabBarContainer}>
-      {/* Curved SVG Background direct from Figma! */}
+      {/* Curved SVG Background dynamically generated to prevent stretching! */}
       <View style={styles.svgBackgroundWrapper}>
-        <Svg width={screenWidth} height={90} viewBox="0 28 440 106" preserveAspectRatio="none">
+        <Svg width={screenWidth} height={90} viewBox={`0 28 ${screenWidth} 125`} preserveAspectRatio="none">
           <Path
-            d="M440 132.597C440 143.642 431.046 152.597 420 152.597H20C8.95431 152.597 0 143.642 0 132.597V48C0 36.9543 8.95431 28 20 28H174.14C178.456 28 181.639 32.0217 181.639 36.3379C181.639 57.6904 198.948 75.0008 220.301 75.001C241.653 75.001 258.964 57.6905 258.964 36.3379C258.964 32.0217 262.147 28 266.463 28H420C431.046 28 440 36.9543 440 48V132.597Z"
+            d={dPath}
             fill="#2563EB"
           />
         </Svg>
@@ -227,13 +230,13 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   centerCircle: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
+    width: 70,
+    height: 70,
+    borderRadius: 35,
     backgroundColor: '#2563EB', // Figma bright blue circle
     justifyContent: 'center',
     alignItems: 'center',
-    top: -22, // Moved up by another 10% (9 pixels) to sit perfectly in the curve
+    top: -38, // Moved up to create a uniform gap inside the U-curve
     shadowColor: '#000000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.25,
@@ -242,7 +245,7 @@ const styles = StyleSheet.create({
   },
   centerPlusText: {
     color: '#E5E7EB',
-    fontSize: 32,
+    fontSize: 46,
     fontWeight: '300',
     bottom: 2.5,
   },

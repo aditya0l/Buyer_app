@@ -4,7 +4,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { MainStackParamList } from '../../navigation/types';
 import { ScreenWrapper } from '../../components/layout/ScreenWrapper';
 import Svg, { Path, Rect, Circle, Defs, LinearGradient, Stop } from 'react-native-svg';
-import WaveSvg from '../../../wave.svg';
+import WaveSvg from '../../assets/wave.svg';
 
 const { width: screenWidth } = Dimensions.get('window');
 
