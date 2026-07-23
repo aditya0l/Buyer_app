@@ -48,7 +48,7 @@ import {
 import TyreStraight from '../../assets/tyrestraight.svg';
 import TyreCurve from '../../assets/tyrecurve.svg';
 import TopBarLogo from '../../assets/blacklogo.svg';
-import CarOnboard from '../../assets/caronboard.svg';
+import CarOnboard from '../../assets/CarOnboard';
 import SuvImage from '../../assets/image-4.svg';
 import SalesmanOnboard from '../../assets/salesmanonboard.svg';
 import TyreOnboard2 from '../../assets/tyreonboard2.svg';
@@ -85,6 +85,12 @@ export const OnboardingFlowScreen: React.FC<Props> = ({ navigation }) => {
     SCREEN_WIDTH / HERO_BASE_WIDTH,
     HERO_CONTAINER_HEIGHT / HERO_BASE_HEIGHT,
   );
+
+  const isTabletDevice = SCREEN_WIDTH >= 550;
+  const isAndroidPhone = Platform.OS === 'android' && !isTabletDevice;
+  const isAndroidTablet = Platform.OS === 'android' && isTabletDevice;
+  const isIpadDevice = Platform.OS === 'ios' && isTabletDevice;
+  const isIosPhone = Platform.OS === 'ios' && !isTabletDevice;
 
   const originalHeroOffsetX = (SCREEN_WIDTH - HERO_BASE_WIDTH * heroScale) / 2;
 
@@ -322,14 +328,14 @@ export const OnboardingFlowScreen: React.FC<Props> = ({ navigation }) => {
           >
             {/* Top Blue Container */}
             <View
-              style={{
-                position: 'absolute',
-                width: '100%',
-                height: '70%',
-                top: 0,
-                zIndex: 1,
-                overflow: 'hidden',
-              }}
+                style={{
+                  position: 'absolute',
+                  width: '100%',
+                  height: '70%',
+                  top: 0,
+                  zIndex: 1,
+                  overflow: 'hidden',
+                }}
             >
               <View
                 style={{
@@ -340,6 +346,7 @@ export const OnboardingFlowScreen: React.FC<Props> = ({ navigation }) => {
                   height: HERO_BASE_HEIGHT * heroScale,
                   alignItems: 'center',
                   justifyContent: 'center',
+                  overflow: 'hidden',
                 }}
               >
                 {/* 
@@ -366,6 +373,16 @@ export const OnboardingFlowScreen: React.FC<Props> = ({ navigation }) => {
                     justifyContent: 'center',
                   }}
                 >
+                  {/* 
+                    iOS react-native-svg clipping fix:
+                    react-native-svg on iOS strictly clips to the width/height of the <Svg> canvas, ignoring overflow.
+                    The rotated car image inside the SVG extends up to x=762. 
+                    If we set width={618}, the car is sliced off on iOS!
+                    Fix: We give the SVG canvas a massive width={1200}. 
+                    Because of preserveAspectRatio="xMidYMax meet", the 440px internal viewBox is centered, so internal x=0 maps to x=380 on the canvas.
+                    We counteract this by setting left: -380 on the View container.
+                    Net result: Internal x=0 is exactly at screen position 0 (original position!), and internal x=762 is at 1142 on the canvas, fitting perfectly without clipping!
+                  */}
                   <View
                     style={{
                       width: HERO_BASE_WIDTH,
@@ -378,7 +395,7 @@ export const OnboardingFlowScreen: React.FC<Props> = ({ navigation }) => {
                       style={{
                         position: 'absolute',
                         bottom: 0,
-                        left: 0,
+                        left: 0, // original placement
                         width: 440,
                         height: 718,
                       }}
@@ -420,7 +437,7 @@ export const OnboardingFlowScreen: React.FC<Props> = ({ navigation }) => {
                       >
                         <CarTyreOnboarding width={440} height={337} />
                       </View>
-                      {/* Far Right Tile (for wide iPads since we shifted left) */}
+                      {/* Far Right Tile */}
                       <View
                         style={{
                           position: 'absolute',
@@ -434,19 +451,62 @@ export const OnboardingFlowScreen: React.FC<Props> = ({ navigation }) => {
                       </View>
                     </View>
 
-                    {/* Car SVG inside the wrapper, but with overflow visible */}
+                    {/* Clipping container to hide the back of the car on the right edge */}
                     <View
                       style={{
                         position: 'absolute',
-                        bottom: 0,
-                        left: -89,
-                        width: 618,
-                        height: 718,
-                        overflow: 'visible',
+                        top: 0,
+                        left: -800,
+                        width: 1240, // 800 + HERO_BASE_WIDTH (440) to clip exactly at the right edge
+                        height: HERO_BASE_HEIGHT,
+                        overflow: 'hidden',
                       }}
                       pointerEvents="none"
                     >
-                      <CarOnboard width={618} height={718} preserveAspectRatio="xMidYMax meet" />
+                      {/* Car SVG inside the massive canvas wrapper */}
+                      <View
+                        style={{
+                          position: 'absolute',
+                          bottom: 0,
+                          left: Platform.OS === 'android' ? 190 : 530, // -610 + 800 and -270 + 800
+                          width: 1200,
+                          height: 718,
+                          overflow: 'visible',
+                          transform: isAndroidTablet
+                            ? [
+                                { translateX: SCREEN_WIDTH * 0.15 },
+                                { translateY: -SCREEN_HEIGHT * 0.02 },
+                              ]
+                            : isAndroidPhone
+                            ? [
+                                { translateX: SCREEN_WIDTH * 0.50 },
+                                { translateY: 0 },
+                              ]
+                            : isIpadDevice
+                            ? [
+                                { translateX: -SCREEN_WIDTH * 0.14 },
+                                { translateY: -SCREEN_HEIGHT * 0.10 },
+                                { rotate: '12deg' },
+                              ]
+                            : [
+                                { translateY: -SCREEN_HEIGHT * 0.10 },
+                                { rotate: '12deg' },
+                              ],
+                        }}
+                        pointerEvents="none"
+                      >
+                        <View
+                          style={{
+                            width: 1200,
+                            height: 718,
+                            ...(Platform.OS === 'ios' && {
+                              transform: [{ scaleX: -0.95 }, { scaleY: 0.95 }],
+                            }),
+                          }}
+                        >
+                          <CarOnboard width={1200} height={718} preserveAspectRatio="xMidYMax meet" />
+                        </View>
+                      </View>
                     </View>
                   </View>
                 </View>
@@ -508,10 +568,10 @@ export const OnboardingFlowScreen: React.FC<Props> = ({ navigation }) => {
               overflow: 'hidden',
             }}
           >
-            {/* Top 62% Blue Container */}
+            {/* Top Blue Container */}
             <View
               style={{
-                height: '62%',
+                height: Platform.OS === 'android' ? '57%' : '62%',
                 width: '100%',
                 backgroundColor: '#2563EB',
                 zIndex: 10,
@@ -773,15 +833,22 @@ export const OnboardingFlowScreen: React.FC<Props> = ({ navigation }) => {
                   style={{
                     position: 'absolute',
                     top: '25%',
-                    left: 30 * (SCREEN_WIDTH / 390),
-                    width: 365 * (SCREEN_WIDTH / 390),
-                    height: 342 * (SCREEN_WIDTH / 390),
+                    left: 55 * (SCREEN_WIDTH / 390),
+                    width: 390 * (SCREEN_WIDTH / 390),
+                    height: 365 * (SCREEN_WIDTH / 390),
                     zIndex: 5,
                     shadowColor: '#000',
                     shadowOffset: { width: -15, height: -15 },
                     shadowOpacity: 0.5,
                     shadowRadius: 20,
                     elevation: 15,
+                    transform: [
+                      {
+                        translateY: isTabletDevice
+                      ? SCREEN_HEIGHT * 0.12 - SCREEN_HEIGHT * 0.25 // Shift upwards by 25% of screen height
+                      : SCREEN_HEIGHT * 0.12,
+                      },
+                    ],
                   }}
                 >
                   <SalesmanOnboard
@@ -1139,12 +1206,14 @@ export const OnboardingFlowScreen: React.FC<Props> = ({ navigation }) => {
                 alignItems: 'center',
               }}
             >
-              {/* Circle container: shifted left to cover white space */}
               <View
                 style={{
                   position: 'absolute',
-                  top: -85 - SCREEN_HEIGHT * 0.015,
-                  left: -140 - SCREEN_WIDTH * 0.14,
+                  top: -85 - SCREEN_HEIGHT * 0.015 + (isTabletDevice ? SCREEN_HEIGHT * 0.025 : 0),
+                  left:
+                    Platform.OS === 'android'
+                      ? -140 - Math.min(SCREEN_WIDTH, 450) * 0.09 - (isTabletDevice ? SCREEN_WIDTH * 0.04 : 0)
+                      : -140 - SCREEN_WIDTH * 0.14 - (isTabletDevice ? SCREEN_WIDTH * 0.04 : 0),
                   width: SCREEN_WIDTH * 1.5,
                   height: 350,
                   alignItems: 'center',
@@ -1177,9 +1246,9 @@ export const OnboardingFlowScreen: React.FC<Props> = ({ navigation }) => {
                   </Defs>
                   <Ellipse
                     cx={(SCREEN_WIDTH * 1.5) / 2}
-                    cy={160}
+                    cy={isTabletDevice ? 145 : 160}
                     rx={(SCREEN_WIDTH * 1.5) / 2}
-                    ry={160}
+                    ry={isTabletDevice ? 145 : 160}
                     fill="url(#loginGrad)"
                   />
                 </Svg>

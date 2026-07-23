@@ -4,8 +4,6 @@ import {
   Text,
   View,
   ScrollView,
-  TouchableOpacity,
-  Alert,
 } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { MainStackParamList } from '../../navigation/types';

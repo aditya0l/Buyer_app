@@ -52,7 +52,7 @@ export const CarLoanFormScreen = () => {
   const [employmentType, setEmploymentType] = useState<'Salaried' | 'Self-Employed'>('Salaried');
   const [name, setName] = useState('Raaj Oberoi');
   const [mobile, setMobile] = useState('+91-74250 XXXXX');
-  const [income, setIncome] = useState('₹10L - ₹20L');
+  const [income, _setIncome] = useState('₹10L - ₹20L');
   const [loanAmount, setLoanAmount] = useState('10,50,000');
 
   return (

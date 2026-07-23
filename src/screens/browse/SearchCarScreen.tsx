@@ -15,7 +15,7 @@ import { MainStackParamList } from '../../navigation/types';
 import { ScreenWrapper } from '../../components/layout/ScreenWrapper';
 import Svg, { Path } from 'react-native-svg';
 
-const { width: screenWidth } = Dimensions.get('window');
+const { width: _screenWidth } = Dimensions.get('window');
 
 type NavigationProp = NativeStackNavigationProp<MainStackParamList>;
 

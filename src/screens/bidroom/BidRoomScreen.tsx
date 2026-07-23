@@ -52,7 +52,7 @@ export const BidRoomScreen: React.FC<Props> = ({ route, navigation }) => {
           <ArrowLeft size={20} color="#0F172A" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Dealer Live Room</Text>
-        <View style={{ width: 40 }} /> {/* spacer for center alignment */}
+        <View style={{ width: 40 }} />
       </View>
 
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
@@ -100,10 +100,11 @@ export const BidRoomScreen: React.FC<Props> = ({ route, navigation }) => {
             </View>
             <View style={styles.carInfoCol}>
               <Text style={styles.carName}>Maruti Brezza ZXI+</Text>
-              <Text style={styles.carSubtext}>
+              <View style={styles.carSubtext}>
                 <Text style={styles.textBlue}>Petrol • Automatic • </Text>
-                <View style={styles.colorDot} /> Red
-              </Text>
+                <View style={styles.colorDot} />
+                <Text style={styles.textBlue}>Red</Text>
+              </View>
             </View>
             <View style={styles.liveBadge}>
               <View style={styles.liveDot} />
@@ -317,6 +318,8 @@ const styles = StyleSheet.create({
   },
   textBlue: {
     color: '#3B82F6',
+    fontFamily: 'Outfit-Medium',
+    fontSize: 11,
   },
   colorDot: {
     width: 8,

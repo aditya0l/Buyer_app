@@ -1,6 +1,6 @@
 import { create } from 'zustand';
+import { User } from '../mocks/mockUser';
 import { getStorageItem, setStorageItem, removeStorageItem, storageKeys } from '../utils/storage';
-import { User, mockUser } from '../mocks/mockUser';
 
 interface AuthState {
   user: User | null;

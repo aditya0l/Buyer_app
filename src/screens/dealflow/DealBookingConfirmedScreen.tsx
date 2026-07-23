@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { MainStackParamList } from '../../navigation/types';
 import { ArrowLeft, MessageSquare } from 'lucide-react-native';
-import Svg, { Defs, LinearGradient, Stop, Rect, Circle as SvgCircle, Polyline, Path } from 'react-native-svg';
+import Svg, { Defs, LinearGradient, Stop, Rect, Circle as SvgCircle, Path } from 'react-native-svg';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type NavigationProp = NativeStackNavigationProp<MainStackParamList>;

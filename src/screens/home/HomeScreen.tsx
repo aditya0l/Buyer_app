@@ -6,21 +6,17 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
-  TextInput,
   Dimensions,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { MainStackParamList } from '../../navigation/types';
-import { colors } from '../../constants/colors';
 import { radius } from '../../constants/radius';
 import { ScreenWrapper } from '../../components/layout/ScreenWrapper';
 import { useAuthStore } from '../../store/authStore';
 import { useBidRoomStore } from '../../store/bidRoomStore';
 import { useNotificationStore } from '../../store/notificationStore';
 import Svg, { Path, Rect, G, Defs, ClipPath, LinearGradient, Stop, Polygon } from 'react-native-svg';
-import { formatPrice } from '../../utils/formatPrice';
-import { TimerCountdown } from '../../components/common/TimerCountdown';
 import WaveSvg from '../../assets/wave.svg';
 import Group94Svg from '../../assets/Group 94.svg';
 import Rectangle1051Svg from '../../assets/Rectangle 1051.svg';
@@ -33,7 +29,6 @@ import {
   mockFuelTypes,
   mockBrandCategories,
   mockCircularBrands,
-  mockCertifiedCarDeals,
   mockRecentPurchases,
   mockMyPurchases,
 } from '../../mocks/mockHomeData';
@@ -63,7 +58,7 @@ export const HomeScreen: React.FC = () => {
   const navigation = useNavigation<NavigationProp>();
   const { user } = useAuthStore();
   const { rooms, initializeRooms, tickTimers } = useBidRoomStore();
-  const { unreadCount, initializeNotifications } = useNotificationStore();
+  const { initializeNotifications } = useNotificationStore();
 
   const [cardSizes, setCardSizes] = useState<Record<string, { width: number, height: number }>>({});
   const onCardLayout = (id: string, event: any) => {
@@ -82,7 +77,7 @@ export const HomeScreen: React.FC = () => {
   const CR = 12;  // cutout radius
 
   const [activeBannerIndex, setActiveBannerIndex] = useState(0);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [_searchQuery, _setSearchQuery] = useState('');
 
   const CARD_DESIGN_WIDTH = 400;
   const cardWidth = screenWidth - 40;

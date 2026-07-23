@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { MainStackParamList } from '../../navigation/types';
 import { ScreenWrapper } from '../../components/layout/ScreenWrapper';
 import Svg, { Path, Rect, Circle, Defs, LinearGradient, Stop } from 'react-native-svg';
 import WaveSvg from '../../assets/wave.svg';
 
-const { width: screenWidth } = Dimensions.get('window');
-
 type Props = NativeStackScreenProps<MainStackParamList, 'CommitmentPay'>;
 
 export const CommitmentPayScreen: React.FC<Props> = ({ route, navigation }) => {
-  const { intentId, variantId, price } = route.params;
+  const { intentId, variantId: _variantId, price: _price } = route.params;
   const [selectedPlan, setSelectedPlan] = useState<'token' | 'free'>('token');
 
   const handleLaunch = () => {

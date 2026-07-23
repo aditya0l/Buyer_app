@@ -7,7 +7,6 @@ import { radius } from '../../constants/radius';
 import { ScreenWrapper } from '../../components/layout/ScreenWrapper';
 import { Header } from '../../components/layout/Header';
 import { Button } from '../../components/common/Button';
-import { Card } from '../../components/common/Card';
 import { PriceText } from '../../components/common/PriceText';
 import { mockWallet } from '../../mocks/mockWallet';
 

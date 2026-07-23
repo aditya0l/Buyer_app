@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar, ActivityIndicator, Image, Animated, Easing } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar, Animated, Easing } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { MainStackParamList } from '../../navigation/types';
-import { ArrowLeft, Check, MapPin, Phone, Calendar, Clock, X } from 'lucide-react-native';
-import Svg, { Defs, LinearGradient, Stop, Rect, Path, Circle, Polygon, Polyline } from 'react-native-svg';
+import { ArrowLeft, Check, MapPin, Phone, Calendar, X } from 'lucide-react-native';
+import Svg, { Defs, LinearGradient, Stop, Rect, Path, Polygon, Polyline } from 'react-native-svg';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type NavigationProp = NativeStackNavigationProp<MainStackParamList>;

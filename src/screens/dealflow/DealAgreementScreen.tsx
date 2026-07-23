@@ -6,7 +6,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { MainStackParamList } from '../../navigation/types';
-import { ArrowLeft, CheckCircle2, Lock, ShieldCheck, User, Store } from 'lucide-react-native';
+import { ArrowLeft, Lock, ShieldCheck, User, Store } from 'lucide-react-native';
 import Svg, { Defs, LinearGradient, Stop, Rect, Circle as SvgCircle, Path } from 'react-native-svg';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -171,7 +171,7 @@ export const DealAgreementScreen = () => {
         {/* ── Final Price Commitment ── */}
         <Text style={styles.sectionTitle}>Final Price Commitment</Text>
         <View style={styles.priceCard}>
-          {PRICE_ROWS.map((row, i) => (
+          {PRICE_ROWS.map((row) => (
             <View key={row.label} style={[styles.priceRow, styles.priceRowBorder]}>
               <Text style={styles.priceLabel}>{row.label}</Text>
               <Text style={[styles.priceValue, { color: row.color }]}>{row.value}</Text>
@@ -207,7 +207,7 @@ export const DealAgreementScreen = () => {
         {/* ── Delivery Terms ── */}
         <Text style={styles.sectionTitle}>Delivery Terms</Text>
         <View style={styles.deliveryCard}>
-          {DELIVERY.map((row, i) => (
+          {DELIVERY.map((row) => (
             <View key={row.label} style={styles.deliveryRow}>
               <Text style={styles.deliveryLabel}>{row.label}</Text>
               <Text style={styles.deliveryValue}>{row.value}</Text>

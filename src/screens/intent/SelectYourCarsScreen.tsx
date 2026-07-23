@@ -13,7 +13,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { MainStackParamList } from '../../navigation/types';
 import { ScreenWrapper } from '../../components/layout/ScreenWrapper';
-import Svg, { Path, Rect, Circle, Defs, LinearGradient, Stop, G, ClipPath } from 'react-native-svg';
+import Svg, { Path, Rect, Defs, LinearGradient, Stop, G, ClipPath } from 'react-native-svg';
 
 const { width: screenWidth } = Dimensions.get('window');
 const BASE_WIDTH = 440;

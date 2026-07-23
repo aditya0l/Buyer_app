@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   StyleSheet,
   Text,
   View,
   FlatList,
   TouchableOpacity,
-  TextInput,
-  Alert,
 } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { MainStackParamList } from '../../navigation/types';
@@ -15,7 +13,6 @@ import { radius } from '../../constants/radius';
 import { ScreenWrapper } from '../../components/layout/ScreenWrapper';
 import { Header } from '../../components/layout/Header';
 import { Button } from '../../components/common/Button';
-import { formatDate } from '../../utils/formatDate';
 
 type Props = NativeStackScreenProps<MainStackParamList, 'Support'>;
 

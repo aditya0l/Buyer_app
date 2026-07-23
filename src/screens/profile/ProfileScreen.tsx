@@ -119,7 +119,7 @@ export const ProfileScreen: React.FC = () => {
 
           {/* Card Content */}
           <View style={styles.profileCardContent}>
-            <View style={{ height: 50 }} /> {/* Spacer for avatar */}
+            <View style={{ height: 50 }} />
             <Text style={styles.userName}>{user?.name || 'Raaj Oberoi'}</Text>
             <Text style={styles.userPhone}>+91 {user?.phone || '74250 30000'}</Text>
             

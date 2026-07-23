@@ -14,8 +14,6 @@ import { radius } from '../../constants/radius';
 import { ScreenWrapper } from '../../components/layout/ScreenWrapper';
 import { Header } from '../../components/layout/Header';
 import { mockWallet } from '../../mocks/mockWallet';
-import { WalletLedgerRow } from '../../components/cards/WalletLedgerRow';
-import { formatPrice } from '../../utils/formatPrice';
 
 type Props = NativeStackScreenProps<MainStackParamList, 'BuyCredits'>;
 
@@ -25,7 +23,7 @@ const CREDIT_PACKAGES = [
   { id: 'pkg-5', credits: 5, price: 399, popular: false },
 ];
 
-export const BuyCreditsScreen: React.FC<Props> = ({ navigation }) => {
+export const BuyCreditsScreen: React.FC<Props> = ({ navigation: _navigation }) => {
   const { dealCredits } = mockWallet;
 
   const handlePurchase = (pkg: typeof CREDIT_PACKAGES[0]) => {

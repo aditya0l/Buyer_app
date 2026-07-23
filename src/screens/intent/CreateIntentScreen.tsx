@@ -6,8 +6,6 @@ import {
   ScrollView,
   TouchableOpacity,
   TextInput,
-  Image,
-  Dimensions,
   Alert,
 } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -17,12 +15,10 @@ import Svg, { Path, Rect, Circle, Defs, LinearGradient, Stop } from 'react-nativ
 import Group94Svg from '../../assets/Group 94.svg';
 import CarBountyLightSvg from '../../assets/carbountylight.svg';
 
-const { width: screenWidth } = Dimensions.get('window');
-
 type Props = NativeStackScreenProps<MainStackParamList, 'CreateIntent'>;
 
 export const CreateIntentScreen: React.FC<Props> = ({ route, navigation }) => {
-  const { vehicleId, variantId } = route.params;
+  const { vehicleId: _vehicleId, variantId } = route.params;
   const [currentStep, setCurrentStep] = useState(1);
 
   // Step 1 State: Timeline

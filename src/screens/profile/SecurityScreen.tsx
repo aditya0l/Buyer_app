@@ -29,7 +29,7 @@ const mockSessions = [
 ];
 
 export const SecurityScreen: React.FC<Props> = () => {
-  const handleRevokeSession = (sessionId: string) => {
+  const handleRevokeSession = (_sessionId: string) => {
     Alert.alert(
       'Revoke Session',
       'This will sign out the device from CarBounty. Continue?',
