@@ -47,7 +47,7 @@ npx react-native run-android
 Create `.env` at the project root:
 
 ```env
-API_BASE_URL=https://api.carbounty.in/v1
+API_BASE_URL=https://myapi.carbounty.com
 USE_MOCK=true
 ```
 
@@ -56,9 +56,9 @@ Update `src/constants/config.ts` to use these values (currently hardcoded):
 ```typescript
 // src/constants/config.ts
 export const config = {
-  API_BASE_URL: 'https://api.carbounty.in/v1',
+  API_BASE_URL: 'https://myapi.carbounty.com',
   USE_MOCK: true,        // Toggle: true = mock data, false = live API
-  TIMEOUT: 15000,
+  TIMEOUT: 10000,
 };
 ```
 
@@ -66,11 +66,11 @@ export const config = {
 
 ## Mock → Live API Switch
 
-1. Set `USE_MOCK: false` in `src/constants/config.ts`
-2. All service files in `src/api/` (when created) will use the `apiClient` from `src/api/client.ts`
-3. Each screen uses React Query — replace mock data with `useQuery` calls to service functions
-4. Auth token is auto-injected via the Axios request interceptor in `src/api/client.ts`
-5. 401 responses auto-logout the user and redirect to OTP screen
+1. Set `USE_MOCK: false` in `src/constants/config.ts`.
+2. All service files in `src/api/` will utilize the Axios instance `apiClient` exported from `src/api/client.ts`.
+3. Each screen utilizes React Query — swap mock state references with `useQuery` or `useMutation` hooks pulling from service modules.
+4. Auth token is automatically injected into the request header via the Axios request interceptor defined in `src/api/client.ts`.
+5. 401 Unauthorized responses trigger a session logout, clearing user credentials and redirecting to the OTP validation screen.
 
 ### Example Pattern
 
@@ -132,13 +132,13 @@ SplashScreen
   └── [Token valid] → MainTabs (Bottom Nav)
 
 MainTabs:
-  🏠 Home       → BidRoom, OrderDetail, PurchaseHistory, NotificationCenter
-  🔍 Browse     → ModelDetail → CreateIntent → CommitmentPay → IntentSuccess → BidRoom
-  ⚡ Bid Rooms  → BidRoomList → BidRoom → SelectWinner → PriceLock → OrderDetail
-  📦 Orders     → OrderList → OrderDetail → DeliveryOTP, Dispute
-  👤 Profile    → EditProfile, Wallet → BuyCredits, DocumentsVault → DocumentFolder → DocumentViewer
-                  PurchaseHistory, Support → RaiseTicket, TicketDetail
-                  PrivacySettings, Security, NotificationCenter
+  Home       → BidRoom, OrderDetail, PurchaseHistory, NotificationCenter
+  Browse     → ModelDetail → CreateIntent → CommitmentPay → IntentSuccess → BidRoom
+  Bid Rooms  → BidRoomList → BidRoom → SelectWinner → PriceLock → OrderDetail
+  Orders     → OrderList → OrderDetail → DeliveryOTP, Dispute
+  Profile    → EditProfile, Wallet → BuyCredits, DocumentsVault → DocumentFolder → DocumentViewer
+               PurchaseHistory, Support → RaiseTicket, TicketDetail
+               PrivacySettings, Security, NotificationCenter
 ```
 
 ---
@@ -147,14 +147,14 @@ MainTabs:
 
 | Rule | Where |
 |------|-------|
-| No buyer-dealer chat | No chat UI anywhere |
-| Commitment before room | `CommitmentPayScreen` blocks until payment confirmed |
-| Winner selection required | `BidRoomScreen` action bar |
-| Lock timer countdown | `PriceLockScreen` Reanimated countdown |
-| VIN status tags shown | `OrderDetailScreen` — In-Stock / Upcoming ETA / Advance Order |
-| Delivery OTP gate | `DeliveryOTPScreen` only accessible when status = "Delivery Scheduled" |
-| Auto-refund highlight | `WalletScreen` ledger entry type "Refund" with reason |
-| Comparison max 4 rooms | `ComparisonGroupScreen` always shows 2–4 child rooms |
+| No buyer-dealer chat | Chat interface is omitted project-wide |
+| Commitment before room | `CommitmentPayScreen` blocks until payment is confirmed |
+| Winner selection required | Handled via `BidRoomScreen` action bar |
+| Lock timer countdown | Managed via `PriceLockScreen` state-driven countdown |
+| VIN status tags shown | `OrderDetailScreen` displays In-Stock, Upcoming ETA, or Advance Order tags |
+| Delivery OTP gate | `DeliveryOTPScreen` restricts action based on status = "Delivery Scheduled" |
+| Auto-refund highlight | `WalletScreen` displays ledger entry type "Refund" with detailed reason |
+| Comparison max 4 rooms | `ComparisonGroupScreen` constraints room render to 2-4 child items |
 
 ---
 
@@ -162,19 +162,19 @@ MainTabs:
 
 | Package | Purpose |
 |---------|---------|
-| `@react-navigation/native` + stacks + tabs | Navigation |
-| `react-native-screens` | Native screen optimization |
-| `react-native-safe-area-context` | Safe area handling |
-| `zustand` | Global client state |
-| `@tanstack/react-query` | Server state + caching |
+| `@react-navigation/bottom-tabs` | Navigation tab layout |
+| `@react-navigation/native` | Navigation container and routing utilities |
+| `@react-navigation/native-stack` | Native stack navigation |
+| `@tanstack/react-query` | Server state fetching and caching |
 | `axios` | HTTP client |
-| `react-native-mmkv` | Fast persistent storage |
-| `react-native-reanimated` | Animations (timer, transitions) |
-| `react-native-gesture-handler` | Gesture support |
-| `react-hook-form` + `@hookform/resolvers` | Form management |
-| `zod` | Schema validation |
-| `date-fns` | Date formatting |
-| `react-native-vector-icons` | Icon support |
+| `date-fns` | Date formatting and manipulation |
+| `lucide-react-native` | System SVG icons |
+| `react-native-gesture-handler` | Declarative gesture control system |
+| `react-native-mmkv` | High-performance synchronous key-value storage |
+| `react-native-safe-area-context` | Safe area insets management |
+| `react-native-screens` | Native navigation screen optimization |
+| `react-native-svg` | SVG element rendering support |
+| `zustand` | Client-side state store |
 
 ---
 
@@ -184,7 +184,7 @@ MainTabs:
 # Run Jest tests
 npm test
 
-# Lint
+# Run code linter
 npm run lint
 ```
 
